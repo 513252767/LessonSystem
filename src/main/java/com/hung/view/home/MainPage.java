@@ -4,11 +4,7 @@ import com.hung.pojo.Account;
 import com.hung.view.login.LoginPage;
 
 import javax.swing.*;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * 主页面
@@ -89,15 +85,15 @@ public class MainPage {
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(lessonManage)) {
                 //课程管理部分
-                splitPane.setRightComponent(new FavoriteComponent(account));
+                splitPane.setRightComponent(new LessonManageComponent(account));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examQuery)) {
                 //考试查询部分
-                splitPane.setRightComponent(new PraiseComponent(account));
+                //splitPane.setRightComponent();
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examManage)) {
                 //考试管理部分
-                splitPane.setRightComponent(new ReportComponent());
+                //splitPane.setRightComponent();
             }
         });
 

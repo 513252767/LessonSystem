@@ -11,8 +11,21 @@ public class Grade {
     Integer lessonId;
     Integer userId;
     String grade;
+    /**
+     *
+     */
+    String condition;
 
     public Grade() {
+
+    }
+
+    public Grade(Integer id, Integer lessonId, Integer userId, String grade, String condition) {
+        this.id = id;
+        this.lessonId = lessonId;
+        this.userId = userId;
+        this.grade = grade;
+        this.condition = condition;
     }
 
     public Grade(Integer id, Integer lessonId, Integer userId, String grade) {
@@ -20,6 +33,14 @@ public class Grade {
         this.lessonId = lessonId;
         this.userId = userId;
         this.grade = grade;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public Integer getId() {
@@ -55,16 +76,6 @@ public class Grade {
     }
 
     @Override
-    public String toString() {
-        return "Grade{" +
-                "id=" + id +
-                ", lessonId=" + lessonId +
-                ", userId=" + userId +
-                ", grade='" + grade + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -73,11 +84,22 @@ public class Grade {
             return false;
         }
         Grade grade1 = (Grade) o;
-        return Objects.equals(id, grade1.id) && Objects.equals(lessonId, grade1.lessonId) && Objects.equals(userId, grade1.userId) && Objects.equals(grade, grade1.grade);
+        return Objects.equals(id, grade1.id) && Objects.equals(lessonId, grade1.lessonId) && Objects.equals(userId, grade1.userId) && Objects.equals(grade, grade1.grade) && Objects.equals(condition, grade1.condition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lessonId, userId, grade);
+        return Objects.hash(id, lessonId, userId, grade, condition);
+    }
+
+    @Override
+    public String toString() {
+        return "Grade{" +
+                "id=" + id +
+                ", lessonId=" + lessonId +
+                ", userId=" + userId +
+                ", grade='" + grade + '\'' +
+                ", condition='" + condition + '\'' +
+                '}';
     }
 }

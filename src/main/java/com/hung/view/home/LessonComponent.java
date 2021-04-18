@@ -54,7 +54,7 @@ public class LessonComponent extends Box {
         }
 
         //设置表格内容
-        List<Lesson> lessons = lessonService.queryAllLessonByTurn(account.getId());
+        List<Lesson> lessons = lessonService.queryAllLesson(account.getId());
         Vector<Vector> vectors = ListToVector.lListToVector(lessons);
         data.clear();
         for(Vector vector:vectors){

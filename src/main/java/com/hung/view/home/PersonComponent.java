@@ -26,13 +26,13 @@ public class PersonComponent extends Box {
     JTextField introductionField = new JTextField(15);
 
     AccountService accountService = new ServiceFactory<>(new AccountServiceImpl()).getService();
+    UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
 
     public PersonComponent(Account account, JFrame jf) {
         super(BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
 
         //根据account查询user信息
-        UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
         User user = userService.queryUserById(account.getId());
 
         //定义临时变量，让文本回显
