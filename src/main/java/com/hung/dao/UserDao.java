@@ -15,7 +15,7 @@ public interface UserDao {
      * @param uid
      * @return
      */
-    @Select("select * from user where id=?")
+    @Select("select * from user where accountId=?")
     User queryUserById(Integer uid);
 
     /**
@@ -30,18 +30,18 @@ public interface UserDao {
     /**
      * 根据id查询昵称
      *
-     * @param uid
+     * @param userId
      * @return
      */
-    @Select("select nickName from user where id=?")
-    String queryNickNameById(Integer uid);
+    @Select("select name from user where id=?")
+    String queryNickNameById(Integer userId);
 
     /**
      * 注册账号成功后顺便注册user以便维持统一id
      *
-     * @param name
+     * @param accountId
      * @return
      */
-    @Insert("insert into user (id,nickName) value(default,?)")
-    Integer registerUser(String name);
+    @Insert("insert into user (id,accountId) value(default,?)")
+    Integer registerUser(Integer accountId);
 }

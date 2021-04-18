@@ -41,4 +41,15 @@ public class UserServiceImpl implements UserService {
         int i = userDao.updateUser(user);
         return i > 0;
     }
+
+    /**
+     * 根据id查询昵称
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public String queryNickNameById(Integer userId) {
+        return userDao.queryNickNameById(userId);
+    }
 }

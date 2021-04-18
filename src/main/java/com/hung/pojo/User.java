@@ -11,10 +11,38 @@ public class User {
     String name;
     String gender;
     String team;
+    String major;
     String introduction;
     Integer accountId;
 
     public User() {
+    }
+
+    public User(Integer id, String name, String gender, String team, String major, String introduction, Integer accountId) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.team = team;
+        this.major = major;
+        this.introduction = introduction;
+        this.accountId = accountId;
+    }
+
+    public User(String name, String gender, String team, String major, String introduction, Integer accountId) {
+        this.name = name;
+        this.gender = gender;
+        this.team = team;
+        this.major = major;
+        this.introduction = introduction;
+        this.accountId = accountId;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     public User(Integer id, String name, String gender, String team, String introduction, Integer accountId) {
@@ -81,6 +109,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", team='" + team + '\'' +
+                ", major='" + major + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", accountId=" + accountId +
                 '}';
@@ -95,11 +124,11 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(gender, user.gender) && Objects.equals(team, user.team) && Objects.equals(introduction, user.introduction) && Objects.equals(accountId, user.accountId);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(gender, user.gender) && Objects.equals(team, user.team) && Objects.equals(major, user.major) && Objects.equals(introduction, user.introduction) && Objects.equals(accountId, user.accountId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, gender, team, introduction, accountId);
+        return Objects.hash(id, name, gender, team, major, introduction, accountId);
     }
 }

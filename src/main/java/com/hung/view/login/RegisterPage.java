@@ -2,7 +2,7 @@ package com.hung.view.login;
 
 import com.hung.pojo.Account;
 import com.hung.service.AccountService;
-import com.hung.service.serviceImpl.AccountServiceImpl;
+import com.hung.service.impl.AccountServiceImpl;
 import com.hung.util.SqlFilter;
 import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
 import com.hung.util.validateCode.ValidateCode;

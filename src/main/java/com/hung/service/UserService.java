@@ -21,4 +21,12 @@ public interface UserService {
      * @return
      */
     boolean updateUser(User user);
+
+    /**
+     * 根据id查询昵称
+     *
+     * @param userId
+     * @return
+     */
+    String queryNickNameById(Integer userId);
 }

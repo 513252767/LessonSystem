@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 public class MainPage {
     JFrame jf = new JFrame("课表系统");
 
-
     public void init(Account account) {
         jf.setTitle("欢迎来到课表系统,你好" + account.getName() + "!");
         jf.setSize(400, 600);
@@ -81,18 +80,23 @@ public class MainPage {
             Object lastPathComponent = selectionEvent.getNewLeadSelectionPath().getLastPathComponent();
 
             if (lastPathComponent.equals(part)) {
-                splitPane.setRightComponent(new PartComponent(option, account, jf, splitPane));
+                //课程表部分
+                splitPane.setRightComponent(new LessonComponent(jf,account,splitPane));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(userManage)) {
+                //个人信息部分
                 splitPane.setRightComponent(new PersonComponent(account, jf));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(lessonManage)) {
+                //课程管理部分
                 splitPane.setRightComponent(new FavoriteComponent(account));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examQuery)) {
+                //考试查询部分
                 splitPane.setRightComponent(new PraiseComponent(account));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examManage)) {
+                //考试管理部分
                 splitPane.setRightComponent(new ReportComponent());
             }
         });

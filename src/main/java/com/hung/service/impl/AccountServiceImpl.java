@@ -44,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
         int flag = 0;
         if (accountDao.registerAccount(account) > 0) {
             //注册成功,顺便注册用户
-            if (userDao.registerUser(account.getName()) > 0) {
+            if (userDao.registerUser(account.getId()) > 0) {
                 flag = 1;
             }
         }
