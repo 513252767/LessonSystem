@@ -29,4 +29,5 @@ public interface UserService {
      * @return
      */
     String queryNickNameById(Integer userId);
+
 }

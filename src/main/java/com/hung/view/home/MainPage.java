@@ -1,10 +1,18 @@
 package com.hung.view.home;
 
 import com.hung.pojo.Account;
+import com.hung.pojo.Lesson;
+import com.hung.pojo.LessonTest;
+import com.hung.service.LessonService;
+import com.hung.service.LessonTestService;
+import com.hung.service.impl.LessonServiceImpl;
+import com.hung.service.impl.LessonTestServiceImpl;
+import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
 import com.hung.view.login.LoginPage;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
 
 /**
  * 主页面
@@ -13,6 +21,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class MainPage {
     JFrame jf = new JFrame("课表系统");
+
+    LessonTestService lessonTestService = new ServiceFactory<>(new LessonTestServiceImpl()).getService();
+    LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
 
     public void init(Account account) {
         jf.setTitle("欢迎来到课表系统,你好" + account.getName() + "!");
@@ -85,7 +96,7 @@ public class MainPage {
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(lessonManage)) {
                 //课程管理部分
-                splitPane.setRightComponent(new LessonManageComponent(account));
+                splitPane.setRightComponent(new LessonManageComponent(account,jf));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examQuery)) {
                 //考试查询部分
@@ -93,7 +104,9 @@ public class MainPage {
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examManage)) {
                 //考试管理部分
-                //splitPane.setRightComponent();
+                Integer lessonId = chooseTest();
+                splitPane.setRightComponent(new LessonGradeComponent(jf,lessonId));
+                splitPane.setDividerLocation(150);
             }
         });
 
@@ -105,4 +118,23 @@ public class MainPage {
         jf.setVisible(true);
     }
 
+    /**
+     * 考试选择组件
+     *
+     * @return
+     */
+    public Integer chooseTest() {
+        //查询所有考试
+        List<LessonTest> lessonTests = lessonTestService.queryAllTest();
+        String[] options = new String[lessonTests.size()];
+        for (int i = 0; i < lessonTests.size(); i++) {
+            LessonTest lessonTest = lessonTests.get(i);
+            Integer lessonId = lessonTest.getLessonId();
+            Lesson lesson = lessonService.queryLessonById(lessonId);
+            options[i] = lessonId+lesson.getName();
+        }
+        int optionDialog = JOptionPane.showOptionDialog(jf, "请选择考试", "考试选择", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        Integer lessonId = lessonTests.get(optionDialog).getLessonId();
+        return lessonId;
+    }
 }

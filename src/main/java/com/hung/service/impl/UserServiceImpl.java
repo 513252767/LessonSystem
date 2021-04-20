@@ -52,4 +52,5 @@ public class UserServiceImpl implements UserService {
     public String queryNickNameById(Integer userId) {
         return userDao.queryNickNameById(userId);
     }
+
 }

@@ -178,20 +178,12 @@ public class LessonArrangeDialog extends JDialog {
         arrangeExamBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-            }
-        });
-        JButton setGradeBtn = new JButton("评分");
-        setGradeBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
+                new ExamArrangeDialog(lessonId,jf).show();
             }
         });
         btnBox.add(reviseBtn);
         btnBox.add(cancelReviseBtn);
         btnBox.add(arrangeExamBtn);
-        btnBox.add(setGradeBtn);
         box.add(btnBox);
 
 

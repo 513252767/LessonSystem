@@ -13,9 +13,13 @@ import java.util.List;
  */
 public class LessonServiceImpl implements LessonService {
 
-    //使用工厂创建sqlSession对象
+    /**
+     * 使用工厂创建sqlSession对象
+     */
     SqlSession sqlSession = new DefaultSqlSession();
-    //使用SqlSession创建Dao接口的代理对象
+    /**
+     * 使用SqlSession创建Dao接口的代理对象
+     */
     LessonDao lessonDao = (LessonDao) sqlSession.getMapper(LessonDao.class);
 
     /**
@@ -62,5 +66,7 @@ public class LessonServiceImpl implements LessonService {
     public Boolean updateLesson(Lesson lesson) {
         return lessonDao.updateLesson(lesson)>0;
     }
+
+
 
 }

@@ -42,5 +42,7 @@ public interface LessonDao {
     @Update("UPDATE lesson SET (week,turn,name,teacher,number,classroom,category) value(#{week},#{turn},#{name},#{teacher}," +
             "#{number},#{classroom},#{category}) where id=#{id};")
     Integer updateLesson(Lesson lesson);
+
+
 }
 

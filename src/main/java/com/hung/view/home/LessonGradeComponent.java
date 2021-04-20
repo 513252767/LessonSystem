@@ -1,9 +1,10 @@
 package com.hung.view.home;
 
-import com.hung.pojo.Account;
-import com.hung.pojo.Lesson;
-import com.hung.service.LessonService;
-import com.hung.service.impl.LessonServiceImpl;
+import com.hung.pojo.User;
+import com.hung.service.GradeService;
+import com.hung.service.UserService;
+import com.hung.service.impl.GradeServiceImpl;
+import com.hung.service.impl.UserServiceImpl;
 import com.hung.util.ListToVector;
 import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
 
@@ -14,38 +15,56 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 /**
- * 课程管理部分
+ * 课程评分
  * @author Hung
  */
-public class LessonManageComponent extends Box {
+public class LessonGradeComponent extends Box {
 
     private JTable table;
     private Vector<String> title = new Vector<>();
     private Vector<Vector> data = new Vector<>();
     private DefaultTableModel tableModel;
 
-    LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
-    JFrame jf =null;
-    Account account=null;
-    public LessonManageComponent(Account account,JFrame jf) {
+    JFrame jf=null;
+
+
+    UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
+    GradeService gradeService = new ServiceFactory<>(new GradeServiceImpl()).getService();
+    Integer lessonId;
+
+    public LessonGradeComponent(JFrame jf,Integer lessonId) {
+
         super(BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
         this.jf=jf;
-        this.account=account;
+        this.lessonId=lessonId;
 
-        //组装评论区表格
-        String[] titles = {" Id "," 课程 ", " 教室 ", " 最大人数 ", " 类型 ","  "};
+        //组装考试各人表格
+        String[] titles = {" 学生id "," 姓名 "," 评分 "};
         for (String t : titles) {
             title.add(t);
         }
 
-        List<Lesson> lessons = lessonService.queryAllLessonByTid(account.getId());
-        Vector<Vector> vectors = ListToVector.lmListToVector(lessons);
-        for(Vector vector:vectors){
+        //查询符合条件的学生id
+        List<Integer> userId = gradeService.queryAllByLessonId(lessonId);
+        //根据id查询相应名字
+        List<User> users = new ArrayList<>();
+        for (Integer id:userId){
+            User user = new User();
+            String name = userService.queryNickNameById(id);
+            user.setId(id);
+            user.setName(name);
+            users.add(user);
+        }
+
+        Vector<Vector> vectors = ListToVector.uListToVector(users);
+        data.clear();
+        for (Vector vector : vectors) {
             data.add(vector);
         }
 
@@ -54,11 +73,9 @@ public class LessonManageComponent extends Box {
         //设置table
         table = new JTable(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //安排考试或记录成绩按钮
-        table.getColumnModel().getColumn(5).setCellEditor(new MyRender());
-        table.getColumnModel().getColumn(5).setCellRenderer(new MyRender());
+        table.getColumnModel().getColumn(2).setCellEditor(new MyRender());
+        table.getColumnModel().getColumn(2).setCellRenderer(new MyRender());
 
-        //组装视图
         box.add(new JScrollPane(table));
         this.add(box);
     }
@@ -72,7 +89,7 @@ public class LessonManageComponent extends Box {
         private JButton button = null;
 
         public MyRender() {
-            button = new JButton("安排考试、修改课程信息");
+            button = new JButton("确认分数");
             button.addActionListener(this);
         }
 
@@ -92,9 +109,23 @@ public class LessonManageComponent extends Box {
         @Override
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
-            //获取id
-            Integer lessonId = (Integer) table.getValueAt(table.getSelectedRow(), 0);
-            new LessonArrangeDialog(jf,"安排考试、修改课程信息",true,account,lessonId).show();
+            //获取学生userId
+            Integer userId = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+            String s = JOptionPane.showInputDialog(jf);
+            //对s进行检验
+            if (!"".equals(s)){
+                try {
+                    Integer grade = Integer.parseInt(s);
+                    if (gradeService.addGrade(lessonId,userId,grade.toString())){
+                        JOptionPane.showMessageDialog(jf,"成绩添加成功!");
+                    }
+                }catch (Exception exception){
+                    exception.printStackTrace();
+                    JOptionPane.showMessageDialog(jf,"分数格式有误,请重新输入");
+                }
+            }else {
+                JOptionPane.showMessageDialog(jf,"输入为空，请重新输入");
+            }
 
         }
 

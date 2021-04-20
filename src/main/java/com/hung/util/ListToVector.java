@@ -1,6 +1,7 @@
 package com.hung.util;
 
 import com.hung.pojo.Lesson;
+import com.hung.pojo.User;
 import com.hung.service.UserService;
 import com.hung.service.impl.UserServiceImpl;
 import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
@@ -68,4 +69,17 @@ public class ListToVector {
         return objects;
     }
 
+    public  static  Vector<Vector> uListToVector(List<User> list){
+        Vector<Vector> objects = new Vector<>();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new LinkedHashMap<>();
+            User user = list.get(i);
+            map.put("id",user.getId().toString());
+            map.put("name",user.getName());
+            Vector vector = new Vector();
+            vector.addAll(map.values());
+            objects.add(vector);
+        }
+        return objects;
+    }
 }
