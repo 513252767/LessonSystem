@@ -24,4 +24,12 @@ public interface LessonTestDao {
      */
     @Select("select id,lessonId,testTime from lessonTest;")
     List<LessonTest> queryAllTest();
+
+    /**
+     * 根据课程id查询所有考试
+     * @param lessonId
+     * @return
+     */
+    @Select("select id,lessonId,testTime from lessonTest where lessonId=?;")
+    LessonTest queryTestByLessonId(Integer lessonId);
 }

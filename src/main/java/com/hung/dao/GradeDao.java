@@ -27,4 +27,12 @@ public interface GradeDao {
      */
     @Update("update grade set grade=?,condition=2 where lessonId=? and userId=?")
     Integer addGrade(String grade,Integer lessonId,Integer userId);
+
+    /**
+     * 根据学生id查询它的考试
+     * @param userId
+     * @return
+     */
+    @Select("select lessonId from grade where userId=?")
+    List<String> queryAllTestByUserId(Integer userId);
 }

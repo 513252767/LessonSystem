@@ -20,4 +20,11 @@ public interface LessonTestService {
      * @return
      */
     List<LessonTest> queryAllTest();
+
+    /**
+     * 根据课程id查询考试
+     * @param lessonId
+     * @return
+     */
+    List<LessonTest> queryAllTest(Integer lessonId);
 }

@@ -1,8 +1,11 @@
 package com.hung.util;
 
 import com.hung.pojo.Lesson;
+import com.hung.pojo.LessonTest;
 import com.hung.pojo.User;
+import com.hung.service.LessonService;
 import com.hung.service.UserService;
+import com.hung.service.impl.LessonServiceImpl;
 import com.hung.service.impl.UserServiceImpl;
 import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
 
@@ -15,13 +18,13 @@ import java.util.Vector;
  * @author Hung
  */
 public class ListToVector {
+
     /**
      * matter转换
      *
      * @param list
      * @return
      */
-
     public static Vector<Vector> lListToVector(List<Lesson> list) {
         final int NUM = 6;
         UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
@@ -76,6 +79,23 @@ public class ListToVector {
             User user = list.get(i);
             map.put("id",user.getId().toString());
             map.put("name",user.getName());
+            Vector vector = new Vector();
+            vector.addAll(map.values());
+            objects.add(vector);
+        }
+        return objects;
+    }
+
+    public  static  Vector<Vector> tListToVector(List<LessonTest> list){
+        Vector<Vector> objects = new Vector<>();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new LinkedHashMap<>();
+            LessonTest lessonTest = list.get(i);
+            map.put("id",lessonTest.getLessonId().toString());
+            LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
+            Lesson lesson = lessonService.queryLessonById(lessonTest.getLessonId());
+            map.put("name",lesson.getName());
+            map.put("time",lessonTest.getTestTime());
             Vector vector = new Vector();
             vector.addAll(map.values());
             objects.add(vector);
