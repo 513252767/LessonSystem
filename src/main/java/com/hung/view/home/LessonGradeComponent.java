@@ -6,7 +6,7 @@ import com.hung.service.UserService;
 import com.hung.service.impl.GradeServiceImpl;
 import com.hung.service.impl.UserServiceImpl;
 import com.hung.util.ListToVector;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -110,8 +110,8 @@ public class LessonGradeComponent extends Box {
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
             //获取学生userId
-            Integer userId = (Integer) table.getValueAt(table.getSelectedRow(), 0);
-            String s = JOptionPane.showInputDialog(jf);
+            Integer userId = Integer.parseInt( table.getValueAt(table.getSelectedRow(), 0).toString());
+            String s = JOptionPane.showInputDialog("请输入成绩");
             //对s进行检验
             if (!"".equals(s)){
                 try {

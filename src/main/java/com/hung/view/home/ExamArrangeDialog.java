@@ -3,7 +3,7 @@ package com.hung.view.home;
 import com.hung.pojo.LessonTest;
 import com.hung.service.LessonTestService;
 import com.hung.service.impl.LessonTestServiceImpl;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -38,10 +38,12 @@ public class ExamArrangeDialog extends JDialog {
                     }else {
                         JOptionPane.showMessageDialog(jf,"提交失败");
                     }
+                }else {
+                    JOptionPane.showMessageDialog(jf,"请输入考试时间");
                 }
             }
         });
         box.add(submit);
-
+        this.add(box);
     }
 }

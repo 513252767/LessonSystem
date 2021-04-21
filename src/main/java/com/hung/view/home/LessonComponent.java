@@ -5,11 +5,13 @@ import com.hung.pojo.Lesson;
 import com.hung.service.LessonService;
 import com.hung.service.impl.LessonServiceImpl;
 import com.hung.util.ListToVector;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
@@ -43,6 +45,12 @@ public class LessonComponent extends Box {
         JLabel searchLabel = new JLabel("搜索:");
         JTextField fuzzyQueryField = new JTextField(15);
         JButton searchBtn = new JButton("查询");
+        searchBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
         btnPanel.add(searchLabel);
         btnPanel.add(fuzzyQueryField);
         btnPanel.add(searchBtn);
@@ -69,6 +77,7 @@ public class LessonComponent extends Box {
                 return false;
             }
         };
+        table.setRowHeight(60);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         //组装视图

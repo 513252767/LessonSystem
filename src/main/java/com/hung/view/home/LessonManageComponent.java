@@ -5,7 +5,7 @@ import com.hung.pojo.Lesson;
 import com.hung.service.LessonService;
 import com.hung.service.impl.LessonServiceImpl;
 import com.hung.util.ListToVector;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -93,7 +93,7 @@ public class LessonManageComponent extends Box {
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
             //获取id
-            Integer lessonId = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+            Integer lessonId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()) ;
             new LessonArrangeDialog(jf,"安排考试、修改课程信息",true,account,lessonId).show();
 
         }

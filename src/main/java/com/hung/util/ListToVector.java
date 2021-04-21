@@ -7,7 +7,7 @@ import com.hung.service.LessonService;
 import com.hung.service.UserService;
 import com.hung.service.impl.LessonServiceImpl;
 import com.hung.service.impl.UserServiceImpl;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ListToVector {
                 for (int k = 1; k < NUM; k++) {
                     if (Integer.parseInt(lesson.getTurn()) == j && Integer.parseInt(lesson.getWeek()) == k) {
                         String s = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
-                        map.put(j + k + "", lesson.getName() + lesson.getClassroom() + lesson.getTeacher() + s+"");
+                        map.put(j + k + "", lesson.getName() +"@"+ lesson.getClassroom() + s+"");
                     } else {
                         map.put(j + k + "", "");
                     }

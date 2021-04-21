@@ -15,7 +15,7 @@ public interface LessonDao {
      * @param accountId
      * @return
      */
-    @Select("SELECT name,teacher,classroom FROM lesson WHERE  id=(SELECT lessonid FROM grade WHERE userid = ?)  ORDER BY turn,week;")
+    @Select("SELECT week,turn,name,teacher,number,classroom,category FROM lesson WHERE  id=(SELECT lessonid FROM grade WHERE userid = ?)  ORDER BY turn,week;")
     List<Lesson> queryAllLesson(Integer accountId);
 
     /**

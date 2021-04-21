@@ -4,7 +4,7 @@ import com.hung.pojo.LessonTest;
 import com.hung.service.LessonTestService;
 import com.hung.service.impl.LessonTestServiceImpl;
 import com.hung.util.ListToVector;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

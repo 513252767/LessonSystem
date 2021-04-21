@@ -6,7 +6,7 @@ import com.hung.service.LessonService;
 import com.hung.service.UserService;
 import com.hung.service.impl.LessonServiceImpl;
 import com.hung.service.impl.UserServiceImpl;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -185,7 +185,6 @@ public class LessonArrangeDialog extends JDialog {
         btnBox.add(cancelReviseBtn);
         btnBox.add(arrangeExamBtn);
         box.add(btnBox);
-
-
+        this.add(box);
     }
 }

@@ -7,7 +7,7 @@ import com.hung.service.LessonService;
 import com.hung.service.LessonTestService;
 import com.hung.service.impl.LessonServiceImpl;
 import com.hung.service.impl.LessonTestServiceImpl;
-import com.hung.util.orm.sqlsession.defaults.ServiceFactory;
+import com.hung.util.aop.ServiceFactory;
 import com.hung.view.login.LoginPage;
 
 import javax.swing.*;
@@ -79,7 +79,7 @@ public class MainPage {
         }
 
         JTree jTree = new JTree(root);
-        jTree.setSelectionRow(2);
+        jTree.setSelectionRow(1);
         splitPane.setRightComponent(new PersonComponent(account, jf));
 
         jTree.addTreeSelectionListener(selectionEvent -> {

@@ -2,7 +2,7 @@ package com.hung.util.aes;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -25,7 +25,9 @@ public class AesUtil {
             // 创建AES的Key生产者
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
             // 利用用户密码作为随机数初始化出
-            kgen.init(128, new SecureRandom(password.getBytes()));
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            random.setSeed(password.getBytes());
+            kgen.init(128,random);
             //加密没关系，SecureRandom是生成安全随机数序列，password.getBytes()是种子，只要种子相同，序列就一样，所以解密只要有password就行
             // 根据用户密码，生成一个密钥
             SecretKey secretKey = kgen.generateKey();
@@ -35,10 +37,10 @@ public class AesUtil {
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
             // 创建密码器
             Cipher cipher = Cipher.getInstance("AES");
-            byte[] byteContent = content.getBytes("utf-8");
             // 初始化为加密模式的密码器
             cipher.init(Cipher.ENCRYPT_MODE, key);
             // 加密
+            byte[] byteContent = content.getBytes(StandardCharsets.UTF_8);
             byte[] result = cipher.doFinal(byteContent);
             return result;
         } catch (NoSuchPaddingException e) {
@@ -50,8 +52,6 @@ public class AesUtil {
         } catch (IllegalBlockSizeException e) {
             e.printStackTrace();
         } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return null;
@@ -68,7 +68,9 @@ public class AesUtil {
         try {
             // 创建AES的Key生产者
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom(password.getBytes()));
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            random.setSeed(password.getBytes());
+            kgen.init(128,random);
             // 根据用户密码，生成一个密钥
             SecretKey secretKey = kgen.generateKey();
             // 返回基本编码格式的密钥
@@ -95,9 +97,9 @@ public class AesUtil {
         return null;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         String content = "密码1993";
-        String password = "加密密码";
+        String password = "778";
         System.out.println("需要加密的内容：" + content);
         byte[] encrypt = encrypt(content, password);
         System.out.println("加密后的2进制密文：" + new String(encrypt));
@@ -106,7 +108,6 @@ public class AesUtil {
         byte[] byte2 = ParseSystemUtil.parseHexStr2Byte(hexStr);
         System.out.println("加密后的2进制密文：" + new String(byte2));
         byte[] decrypt = decrypt(byte2, password);
-        System.out.println("解密后的内容：" + new String(decrypt, "utf-8"));
+        System.out.println("解密后的内容：" + new String(decrypt, StandardCharsets.UTF_8));
     }
-
 }
