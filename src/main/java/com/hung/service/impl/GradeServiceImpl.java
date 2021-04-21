@@ -19,6 +19,7 @@ public class GradeServiceImpl implements GradeService {
      * 使用SqlSession创建Dao接口的代理对象
      */
     GradeDao gradeDao = (GradeDao) sqlSession.getMapper(GradeDao.class);
+
     /**
      * 根据课程id查询所有学生的信息
      *
@@ -40,6 +41,6 @@ public class GradeServiceImpl implements GradeService {
      */
     @Override
     public Boolean addGrade(Integer lessonId, Integer userId, String grade) {
-        return gradeDao.addGrade(grade,userId,lessonId)>0;
+        return gradeDao.addGrade(grade, userId, lessonId) > 0;
     }
 }

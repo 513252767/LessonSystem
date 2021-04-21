@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * 课程类
+ *
  * @author Hung
  */
 public class Lesson {

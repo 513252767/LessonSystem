@@ -27,7 +27,7 @@ public class AesUtil {
             // 利用用户密码作为随机数初始化出
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             random.setSeed(password.getBytes());
-            kgen.init(128,random);
+            kgen.init(128, random);
             //加密没关系，SecureRandom是生成安全随机数序列，password.getBytes()是种子，只要种子相同，序列就一样，所以解密只要有password就行
             // 根据用户密码，生成一个密钥
             SecretKey secretKey = kgen.generateKey();
@@ -70,7 +70,7 @@ public class AesUtil {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             random.setSeed(password.getBytes());
-            kgen.init(128,random);
+            kgen.init(128, random);
             // 根据用户密码，生成一个密钥
             SecretKey secretKey = kgen.generateKey();
             // 返回基本编码格式的密钥

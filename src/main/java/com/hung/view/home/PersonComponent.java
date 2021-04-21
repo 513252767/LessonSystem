@@ -20,7 +20,7 @@ public class PersonComponent extends Box {
     JTextField nameField = new JTextField(15);
     JTextField passwordField = new JTextField(15);
     JTextField nickNameField = new JTextField(15);
-    JTextField majorField=new JTextField(15);
+    JTextField majorField = new JTextField(15);
     JTextField teamField = new JTextField(15);
     JTextField genderField = new JTextField(15);
     JTextField introductionField = new JTextField(15);
@@ -121,13 +121,13 @@ public class PersonComponent extends Box {
             String majorNow = majorField.getText().trim();
             String introductionNow = introductionField.getText().trim();
             if (passwordNow.isEmpty() || nickNameNow.isEmpty() || genderNow.isEmpty() || teamNow.isEmpty() ||
-                    majorNow.isEmpty() || introductionNow.isEmpty()){
-                JOptionPane.showMessageDialog(jf,"请不要出现空行哦");
+                    majorNow.isEmpty() || introductionNow.isEmpty()) {
+                JOptionPane.showMessageDialog(jf, "请不要出现空行哦");
                 return;
             }
             //封装account和user，更新信息
-            Account accountRevise = new Account(account.getId(), nameField.getText().trim(),passwordNow);
-            User userRevise = new User(nickNameNow,genderNow,teamNow, majorNow,introductionNow,account.getId());
+            Account accountRevise = new Account(account.getId(), nameField.getText().trim(), passwordNow);
+            User userRevise = new User(nickNameNow, genderNow, teamNow, majorNow, introductionNow, account.getId());
             if (accountService.updateAccount(accountRevise) && userService.updateUser(userRevise)) {
                 JOptionPane.showMessageDialog(jf, "成功修改!");
             } else {

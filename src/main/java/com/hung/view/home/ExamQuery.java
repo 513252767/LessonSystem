@@ -13,6 +13,7 @@ import java.util.Vector;
 
 /**
  * 查询考试
+ *
  * @author Hung
  */
 public class ExamQuery extends Box {
@@ -29,7 +30,7 @@ public class ExamQuery extends Box {
         Box box = Box.createVerticalBox();
 
         //组装考试表格
-        String[] titles = {"课程Id "," 课程名称 "," 考试时间 "};
+        String[] titles = {"课程Id ", " 课程名称 ", " 考试时间 "};
         for (String t : titles) {
             title.add(t);
         }

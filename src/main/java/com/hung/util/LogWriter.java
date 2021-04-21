@@ -8,11 +8,12 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * 日志记录
+ *
  * @author Hung
  */
 public class LogWriter {
     /**
-     *    可以写作配置：true写文件; false输出控制台
+     * 可以写作配置：true写文件; false输出控制台
      */
     private static boolean fileLog = true;
     private static String logFileName = "log/error.log";

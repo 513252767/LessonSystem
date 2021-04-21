@@ -12,6 +12,7 @@ import java.util.List;
 public interface LessonDao {
     /**
      * 按照accountId和第几节课查询课程
+     *
      * @param accountId
      * @return
      */
@@ -20,6 +21,7 @@ public interface LessonDao {
 
     /**
      * 根据教师id查询其课程
+     *
      * @param teacherId
      * @return
      */
@@ -28,6 +30,7 @@ public interface LessonDao {
 
     /**
      * 根据lessonId查询课程
+     *
      * @param lessonId
      * @return
      */
@@ -36,6 +39,7 @@ public interface LessonDao {
 
     /**
      * 更新课程信息
+     *
      * @param lesson
      * @return
      */

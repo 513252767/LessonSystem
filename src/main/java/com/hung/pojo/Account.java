@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * 账户类
+ *
  * @author Hung
  */
 public class Account {

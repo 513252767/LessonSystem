@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * 分数类
+ *
  * @author Hung
  */
 public class Grade {

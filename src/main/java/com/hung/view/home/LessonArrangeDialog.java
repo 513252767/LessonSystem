@@ -178,7 +178,7 @@ public class LessonArrangeDialog extends JDialog {
         arrangeExamBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new ExamArrangeDialog(lessonId,jf).show();
+                new ExamArrangeDialog(lessonId, jf).show();
             }
         });
         btnBox.add(reviseBtn);

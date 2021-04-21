@@ -10,6 +10,7 @@ import java.util.List;
 public interface LessonService {
     /**
      * 根据第几节课来查询当前节课星期一至五的List
+     *
      * @param accountId
      * @return
      */
@@ -17,6 +18,7 @@ public interface LessonService {
 
     /**
      * 根据教师id查询课程
+     *
      * @param teacherId
      * @return
      */
@@ -24,6 +26,7 @@ public interface LessonService {
 
     /**
      * 根据lessonId查询课程
+     *
      * @param lessonId
      * @return
      */
@@ -31,6 +34,7 @@ public interface LessonService {
 
     /**
      * 更新课程信息
+     *
      * @param lesson
      * @return
      */

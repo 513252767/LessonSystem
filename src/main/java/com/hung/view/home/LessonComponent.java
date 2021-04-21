@@ -17,6 +17,7 @@ import java.util.Vector;
 
 /**
  * 课程表组件类
+ *
  * @author Hung
  */
 public class LessonComponent extends Box {
@@ -32,7 +33,7 @@ public class LessonComponent extends Box {
     LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
     JFrame jf = null;
 
-    public LessonComponent(JFrame jf, Account account,JSplitPane jSplitPane) {
+    public LessonComponent(JFrame jf, Account account, JSplitPane jSplitPane) {
         super(BoxLayout.Y_AXIS);
         this.jf = jf;
         //组装视图
@@ -65,7 +66,7 @@ public class LessonComponent extends Box {
         List<Lesson> lessons = lessonService.queryAllLesson(account.getId());
         Vector<Vector> vectors = ListToVector.lListToVector(lessons);
         data.clear();
-        for(Vector vector:vectors){
+        for (Vector vector : vectors) {
             data.add(vector);
         }
 

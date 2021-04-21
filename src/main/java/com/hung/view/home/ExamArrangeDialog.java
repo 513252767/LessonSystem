@@ -11,13 +11,14 @@ import java.awt.event.ActionListener;
 
 /**
  * 考试安排对话框
+ *
  * @author Hung
  */
 public class ExamArrangeDialog extends JDialog {
 
     LessonTestService lessonTestService = new ServiceFactory<>(new LessonTestServiceImpl()).getService();
 
-    public ExamArrangeDialog(Integer lessonId,JFrame jf) {
+    public ExamArrangeDialog(Integer lessonId, JFrame jf) {
         //建立必要部件
         Box box = Box.createHorizontalBox();
         JLabel label = new JLabel("安排你的考试时间");
@@ -31,15 +32,15 @@ public class ExamArrangeDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String time = textArea.getText().trim();
-                if (!"".equals(time)){
+                if (!"".equals(time)) {
                     LessonTest lessonTest = new LessonTest(lessonId, time);
-                    if(lessonTestService.addLessonTest(lessonTest)){
-                        JOptionPane.showMessageDialog(jf,"提交成功");
-                    }else {
-                        JOptionPane.showMessageDialog(jf,"提交失败");
+                    if (lessonTestService.addLessonTest(lessonTest)) {
+                        JOptionPane.showMessageDialog(jf, "提交成功");
+                    } else {
+                        JOptionPane.showMessageDialog(jf, "提交失败");
                     }
-                }else {
-                    JOptionPane.showMessageDialog(jf,"请输入考试时间");
+                } else {
+                    JOptionPane.showMessageDialog(jf, "请输入考试时间");
                 }
             }
         });

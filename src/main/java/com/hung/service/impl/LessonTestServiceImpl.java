@@ -16,13 +16,13 @@ import java.util.List;
 public class LessonTestServiceImpl implements LessonTestService {
 
     /**
-     *   使用工厂创建sqlSession对象
+     * 使用工厂创建sqlSession对象
      */
     SqlSession sqlSession = new DefaultSqlSession();
     /**
      * 使用SqlSession创建Dao接口的代理对象
      */
-    LessonTestDao lessonTestDao=(LessonTestDao) sqlSession.getMapper(LessonTestDao.class);
+    LessonTestDao lessonTestDao = (LessonTestDao) sqlSession.getMapper(LessonTestDao.class);
     GradeDao gradeDao = (GradeDao) sqlSession.getMapper(GradeDao.class);
 
     /**
@@ -33,7 +33,7 @@ public class LessonTestServiceImpl implements LessonTestService {
      */
     @Override
     public Boolean addLessonTest(LessonTest lessonTest) {
-        return lessonTestDao.addLessonTest(lessonTest)>0;
+        return lessonTestDao.addLessonTest(lessonTest) > 0;
     }
 
     /**
@@ -56,8 +56,8 @@ public class LessonTestServiceImpl implements LessonTestService {
     public List<LessonTest> queryAllTest(Integer userId) {
         List<String> lessonIds = gradeDao.queryAllTestByUserId(userId);
         List<LessonTest> tests = new ArrayList<>();
-        if (lessonIds.size()!=0){
-            for (String lessonId:lessonIds){
+        if (lessonIds.size() != 0) {
+            for (String lessonId : lessonIds) {
                 LessonTest lessonTest = lessonTestDao.queryTestByLessonId(Integer.valueOf(lessonId));
                 tests.add(lessonTest);
             }

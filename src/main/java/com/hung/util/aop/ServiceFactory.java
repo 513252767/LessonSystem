@@ -39,7 +39,7 @@ public class ServiceFactory<T> {
                     return value;
                 } catch (Exception e) {
                     transactionManager.rollback();
-                    String info= LocalDate.now()+" "+Thread.currentThread().toString()+e.getMessage()+"  "+e.getCause();
+                    String info = LocalDate.now() + " " + Thread.currentThread().toString() + e.getMessage() + "  " + e.getCause();
                     try {
                         LogWriter.log(info);
                     } catch (IOException ioException) {

@@ -72,7 +72,7 @@ public class MainPage {
             //学生特有
             root.add(part);
             root.add(examQuery);
-        }else {
+        } else {
             //教师特有
             root.add(lessonManage);
             root.add(examManage);
@@ -88,7 +88,7 @@ public class MainPage {
 
             if (lastPathComponent.equals(part)) {
                 //课程表部分
-                splitPane.setRightComponent(new LessonComponent(jf,account,splitPane));
+                splitPane.setRightComponent(new LessonComponent(jf, account, splitPane));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(userManage)) {
                 //个人信息部分
@@ -96,7 +96,7 @@ public class MainPage {
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(lessonManage)) {
                 //课程管理部分
-                splitPane.setRightComponent(new LessonManageComponent(account,jf));
+                splitPane.setRightComponent(new LessonManageComponent(account, jf));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examQuery)) {
                 //考试查询部分
@@ -105,7 +105,7 @@ public class MainPage {
             } else if (lastPathComponent.equals(examManage)) {
                 //考试管理部分
                 Integer lessonId = chooseTest();
-                splitPane.setRightComponent(new LessonGradeComponent(jf,lessonId));
+                splitPane.setRightComponent(new LessonGradeComponent(jf, lessonId));
                 splitPane.setDividerLocation(150);
             }
         });
@@ -131,7 +131,7 @@ public class MainPage {
             LessonTest lessonTest = lessonTests.get(i);
             Integer lessonId = lessonTest.getLessonId();
             Lesson lesson = lessonService.queryLessonById(lessonId);
-            options[i] = lessonId+lesson.getName();
+            options[i] = lessonId + lesson.getName();
         }
         int optionDialog = JOptionPane.showOptionDialog(jf, "请选择考试", "考试选择", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         Integer lessonId = lessonTests.get(optionDialog).getLessonId();

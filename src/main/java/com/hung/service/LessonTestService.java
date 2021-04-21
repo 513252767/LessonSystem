@@ -10,6 +10,7 @@ import java.util.List;
 public interface LessonTestService {
     /**
      * 设置考试事件
+     *
      * @param lessonTest
      * @return
      */
@@ -17,12 +18,14 @@ public interface LessonTestService {
 
     /**
      * 查询所有考试
+     *
      * @return
      */
     List<LessonTest> queryAllTest();
 
     /**
      * 根据课程id查询考试
+     *
      * @param lessonId
      * @return
      */

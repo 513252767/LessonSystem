@@ -21,6 +21,7 @@ import java.util.Vector;
 
 /**
  * 课程评分
+ *
  * @author Hung
  */
 public class LessonGradeComponent extends Box {
@@ -30,22 +31,22 @@ public class LessonGradeComponent extends Box {
     private Vector<Vector> data = new Vector<>();
     private DefaultTableModel tableModel;
 
-    JFrame jf=null;
+    JFrame jf = null;
 
 
     UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
     GradeService gradeService = new ServiceFactory<>(new GradeServiceImpl()).getService();
     Integer lessonId;
 
-    public LessonGradeComponent(JFrame jf,Integer lessonId) {
+    public LessonGradeComponent(JFrame jf, Integer lessonId) {
 
         super(BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
-        this.jf=jf;
-        this.lessonId=lessonId;
+        this.jf = jf;
+        this.lessonId = lessonId;
 
         //组装考试各人表格
-        String[] titles = {" 学生id "," 姓名 "," 评分 "};
+        String[] titles = {" 学生id ", " 姓名 ", " 评分 "};
         for (String t : titles) {
             title.add(t);
         }
@@ -54,7 +55,7 @@ public class LessonGradeComponent extends Box {
         List<Integer> userId = gradeService.queryAllByLessonId(lessonId);
         //根据id查询相应名字
         List<User> users = new ArrayList<>();
-        for (Integer id:userId){
+        for (Integer id : userId) {
             User user = new User();
             String name = userService.queryNickNameById(id);
             user.setId(id);
@@ -110,21 +111,21 @@ public class LessonGradeComponent extends Box {
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
             //获取学生userId
-            Integer userId = Integer.parseInt( table.getValueAt(table.getSelectedRow(), 0).toString());
+            Integer userId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
             String s = JOptionPane.showInputDialog("请输入成绩");
             //对s进行检验
-            if (!"".equals(s)){
+            if (!"".equals(s)) {
                 try {
                     Integer grade = Integer.parseInt(s);
-                    if (gradeService.addGrade(lessonId,userId,grade.toString())){
-                        JOptionPane.showMessageDialog(jf,"成绩添加成功!");
+                    if (gradeService.addGrade(lessonId, userId, grade.toString())) {
+                        JOptionPane.showMessageDialog(jf, "成绩添加成功!");
                     }
-                }catch (Exception exception){
+                } catch (Exception exception) {
                     exception.printStackTrace();
-                    JOptionPane.showMessageDialog(jf,"分数格式有误,请重新输入");
+                    JOptionPane.showMessageDialog(jf, "分数格式有误,请重新输入");
                 }
-            }else {
-                JOptionPane.showMessageDialog(jf,"输入为空，请重新输入");
+            } else {
+                JOptionPane.showMessageDialog(jf, "输入为空，请重新输入");
             }
 
         }

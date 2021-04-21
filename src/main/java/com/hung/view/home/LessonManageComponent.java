@@ -19,6 +19,7 @@ import java.util.Vector;
 
 /**
  * 课程管理部分
+ *
  * @author Hung
  */
 public class LessonManageComponent extends Box {
@@ -29,23 +30,24 @@ public class LessonManageComponent extends Box {
     private DefaultTableModel tableModel;
 
     LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
-    JFrame jf =null;
-    Account account=null;
-    public LessonManageComponent(Account account,JFrame jf) {
+    JFrame jf = null;
+    Account account = null;
+
+    public LessonManageComponent(Account account, JFrame jf) {
         super(BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
-        this.jf=jf;
-        this.account=account;
+        this.jf = jf;
+        this.account = account;
 
         //组装评论区表格
-        String[] titles = {" Id "," 课程 ", " 教室 ", " 最大人数 ", " 类型 ","  "};
+        String[] titles = {" Id ", " 课程 ", " 教室 ", " 最大人数 ", " 类型 ", "  "};
         for (String t : titles) {
             title.add(t);
         }
 
         List<Lesson> lessons = lessonService.queryAllLessonByTid(account.getId());
         Vector<Vector> vectors = ListToVector.lmListToVector(lessons);
-        for(Vector vector:vectors){
+        for (Vector vector : vectors) {
             data.add(vector);
         }
 
@@ -93,8 +95,8 @@ public class LessonManageComponent extends Box {
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
             //获取id
-            Integer lessonId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()) ;
-            new LessonArrangeDialog(jf,"安排考试、修改课程信息",true,account,lessonId).show();
+            Integer lessonId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+            new LessonArrangeDialog(jf, "安排考试、修改课程信息", true, account, lessonId).show();
 
         }
 

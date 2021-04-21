@@ -12,6 +12,7 @@ import java.util.List;
 public interface LessonTestDao {
     /**
      * 设置考试事件
+     *
      * @param lessonTest
      * @return
      */
@@ -20,6 +21,7 @@ public interface LessonTestDao {
 
     /**
      * 查询所有考试
+     *
      * @return
      */
     @Select("select id,lessonId,testTime from lessonTest;")
@@ -27,6 +29,7 @@ public interface LessonTestDao {
 
     /**
      * 根据课程id查询所有考试
+     *
      * @param lessonId
      * @return
      */

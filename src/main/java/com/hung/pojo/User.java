@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * 用户类
+ *
  * @author Hung
  */
 public class User {

@@ -34,11 +34,11 @@ public class ListToVector {
 
             for (int j = 1; j < NUM; j++) {
                 Map<String, String> map = new LinkedHashMap();
-                map.put("第一节课", "第"+j+"节课");
+                map.put("第一节课", "第" + j + "节课");
                 for (int k = 1; k < NUM; k++) {
                     if (Integer.parseInt(lesson.getTurn()) == j && Integer.parseInt(lesson.getWeek()) == k) {
                         String s = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
-                        map.put(j + k + "", lesson.getName() +"@"+ lesson.getClassroom() + s+"");
+                        map.put(j + k + "", lesson.getName() + "@" + lesson.getClassroom() + s + "");
                     } else {
                         map.put(j + k + "", "");
                     }
@@ -51,19 +51,19 @@ public class ListToVector {
         return objects;
     }
 
-    public  static  Vector<Vector> lmListToVector(List<Lesson> list){
+    public static Vector<Vector> lmListToVector(List<Lesson> list) {
         Vector<Vector> objects = new Vector<>();
         for (int i = 0; i < list.size(); i++) {
             Map<String, String> map = new LinkedHashMap<>();
             Lesson lesson = list.get(i);
-            map.put("id",lesson.getId().toString());
-            map.put("课程",lesson.getName());
-            map.put("教师",lesson.getClassroom());
-            map.put("最大人数",lesson.getNumber());
-            if (lesson.getCategory()=="1"){
-                map.put("类型","必修");
-            }else {
-                map.put("类型","选修");
+            map.put("id", lesson.getId().toString());
+            map.put("课程", lesson.getName());
+            map.put("教师", lesson.getClassroom());
+            map.put("最大人数", lesson.getNumber());
+            if (lesson.getCategory() == "1") {
+                map.put("类型", "必修");
+            } else {
+                map.put("类型", "选修");
             }
             Vector vector = new Vector();
             vector.addAll(map.values());
@@ -72,13 +72,13 @@ public class ListToVector {
         return objects;
     }
 
-    public  static  Vector<Vector> uListToVector(List<User> list){
+    public static Vector<Vector> uListToVector(List<User> list) {
         Vector<Vector> objects = new Vector<>();
         for (int i = 0; i < list.size(); i++) {
             Map<String, String> map = new LinkedHashMap<>();
             User user = list.get(i);
-            map.put("id",user.getId().toString());
-            map.put("name",user.getName());
+            map.put("id", user.getId().toString());
+            map.put("name", user.getName());
             Vector vector = new Vector();
             vector.addAll(map.values());
             objects.add(vector);
@@ -86,16 +86,16 @@ public class ListToVector {
         return objects;
     }
 
-    public  static  Vector<Vector> tListToVector(List<LessonTest> list){
+    public static Vector<Vector> tListToVector(List<LessonTest> list) {
         Vector<Vector> objects = new Vector<>();
         for (int i = 0; i < list.size(); i++) {
             Map<String, String> map = new LinkedHashMap<>();
             LessonTest lessonTest = list.get(i);
-            map.put("id",lessonTest.getLessonId().toString());
+            map.put("id", lessonTest.getLessonId().toString());
             LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
             Lesson lesson = lessonService.queryLessonById(lessonTest.getLessonId());
-            map.put("name",lesson.getName());
-            map.put("time",lessonTest.getTestTime());
+            map.put("name", lesson.getName());
+            map.put("time", lessonTest.getTestTime());
             Vector vector = new Vector();
             vector.addAll(map.values());
             objects.add(vector);
