@@ -16,7 +16,7 @@ import java.util.Vector;
  *
  * @author Hung
  */
-public class ExamQuery extends Box {
+public class ExamQueryComponent extends Box {
 
     private JTable table;
     private Vector<String> title = new Vector<>();
@@ -25,7 +25,7 @@ public class ExamQuery extends Box {
 
     LessonTestService lessonTestService = new ServiceFactory<>(new LessonTestServiceImpl()).getService();
 
-    public ExamQuery(Integer userId) {
+    public ExamQueryComponent(Integer userId) {
         super(BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
 

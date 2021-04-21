@@ -40,5 +40,10 @@ public interface LessonService {
      */
     Boolean updateLesson(Lesson lesson);
 
-
+    /**
+     * 模糊查询
+     * @param condition
+     * @return
+     */
+    List<Lesson> queryLessonByCondition(String condition);
 }

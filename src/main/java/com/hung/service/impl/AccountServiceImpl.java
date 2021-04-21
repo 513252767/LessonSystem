@@ -4,6 +4,7 @@ import com.hung.dao.AccountDao;
 import com.hung.dao.UserDao;
 import com.hung.pojo.Account;
 import com.hung.service.AccountService;
+import com.hung.util.aes.AesUtil;
 import com.hung.util.orm.sqlsession.SqlSession;
 import com.hung.util.orm.sqlsession.defaults.DefaultSqlSession;
 
@@ -29,7 +30,10 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Account loginAccount(Account account) {
-        return accountDao.loginAccount(account);
+        account.setPassword(AesUtil.encryptStr(account.getPassword(),account.getName()));
+        Account loginAccount = accountDao.loginAccount(account);
+        loginAccount.setPassword(AesUtil.decryptStr(loginAccount.getPassword(),loginAccount.getName()));
+        return loginAccount;
     }
 
     /**
@@ -40,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Integer registerAccount(Account account) {
-
+        account.setPassword(AesUtil.encryptStr(account.getPassword(),account.getName()));
         int flag = 0;
         if (accountDao.registerAccount(account) > 0) {
             //注册成功,顺便注册用户
@@ -59,6 +63,7 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public boolean updateAccount(Account account) {
+        account.setPassword(AesUtil.encryptStr(account.getPassword(),account.getName()));
         int i = accountDao.updateAccount(account);
         return i > 0;
     }

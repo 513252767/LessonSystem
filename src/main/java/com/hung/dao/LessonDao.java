@@ -47,6 +47,14 @@ public interface LessonDao {
             "#{number},#{classroom},#{category}) where id=#{id};")
     Integer updateLesson(Lesson lesson);
 
-
+    /**
+     * 条件查询
+     * @param className
+     * @param teacherId
+     * @param category
+     * @return
+     */
+    @Select("select week,turn,name,teacher,number,classroom,category from lesson where name like ? or teacher like ? or category like ?;")
+    List<Lesson> queryAllLessonByCondition(String className,String teacherId,String category);
 }
 

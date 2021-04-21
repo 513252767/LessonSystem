@@ -100,7 +100,7 @@ public class MainPage {
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examQuery)) {
                 //考试查询部分
-                splitPane.setRightComponent(new ExamQuery(account.getId()));
+                splitPane.setRightComponent(new ExamQueryComponent(account.getId()));
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examManage)) {
                 //考试管理部分

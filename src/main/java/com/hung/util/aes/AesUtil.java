@@ -27,7 +27,7 @@ public class AesUtil {
             // 利用用户密码作为随机数初始化出
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             random.setSeed(password.getBytes());
-            kgen.init(128, random);
+            kgen.init(128,random);
             //加密没关系，SecureRandom是生成安全随机数序列，password.getBytes()是种子，只要种子相同，序列就一样，所以解密只要有password就行
             // 根据用户密码，生成一个密钥
             SecretKey secretKey = kgen.generateKey();
@@ -43,15 +43,7 @@ public class AesUtil {
             byte[] byteContent = content.getBytes(StandardCharsets.UTF_8);
             byte[] result = cipher.doFinal(byteContent);
             return result;
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
         return null;
@@ -70,7 +62,7 @@ public class AesUtil {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             random.setSeed(password.getBytes());
-            kgen.init(128, random);
+            kgen.init(128,random);
             // 根据用户密码，生成一个密钥
             SecretKey secretKey = kgen.generateKey();
             // 返回基本编码格式的密钥
@@ -83,23 +75,28 @@ public class AesUtil {
             cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] result = cipher.doFinal(content);
             return result;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    public static  String encryptStr(String content, String password){
+        byte[] encrypt = encrypt(content, password);
+        String hexStr = ParseSystemUtil.parseByte2HexStr(encrypt);
+        return hexStr;
+    }
+
+    public static  String decryptStr(String hexStr, String password){
+        byte[] byte2 = ParseSystemUtil.parseHexStr2Byte(hexStr);
+        byte[] decrypt = decrypt(byte2, password);
+        String s = new String(decrypt, StandardCharsets.UTF_8);
+        return s;
+    }
+
     public static void main(String[] args) {
-        String content = "密码1993";
-        String password = "778";
+        String content = "123456";
+        String password = "xmy";
         System.out.println("需要加密的内容：" + content);
         byte[] encrypt = encrypt(content, password);
         System.out.println("加密后的2进制密文：" + new String(encrypt));

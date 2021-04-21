@@ -67,6 +67,18 @@ public class LessonServiceImpl implements LessonService {
         return lessonDao.updateLesson(lesson)>0;
     }
 
+    /**
+     * 模糊查询
+     *
+     * @param condition
+     * @return
+     */
+    @Override
+    public List<Lesson> queryLessonByCondition(String condition) {
+        condition="%"+condition+"%";
+        List<Lesson> lessons = lessonDao.queryAllLessonByCondition(condition, condition, condition);
+        return lessons;
+    }
 
 
 }

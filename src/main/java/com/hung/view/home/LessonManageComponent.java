@@ -96,7 +96,7 @@ public class LessonManageComponent extends Box {
             // TODO Auto-generated method stub
             //获取id
             Integer lessonId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
-            new LessonArrangeDialog(jf, "安排考试、修改课程信息", true, account, lessonId).show();
+            new LessonArrangeDialog(jf, "安排考试、修改课程信息", true, lessonId).show();
 
         }
 

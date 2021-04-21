@@ -37,8 +37,8 @@ public class ListToVector {
                 map.put("第一节课", "第" + j + "节课");
                 for (int k = 1; k < NUM; k++) {
                     if (Integer.parseInt(lesson.getTurn()) == j && Integer.parseInt(lesson.getWeek()) == k) {
-                        String s = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
-                        map.put(j + k + "", lesson.getName() + "@" + lesson.getClassroom() + s + "");
+                        String teacher = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
+                        map.put(j + k + "", lesson.getName() + "@" + lesson.getClassroom() + teacher + "");
                     } else {
                         map.put(j + k + "", "");
                     }
@@ -58,8 +58,32 @@ public class ListToVector {
             Lesson lesson = list.get(i);
             map.put("id", lesson.getId().toString());
             map.put("课程", lesson.getName());
-            map.put("教师", lesson.getClassroom());
+            map.put("教室", lesson.getClassroom());
             map.put("最大人数", lesson.getNumber());
+            if (lesson.getCategory() == "1") {
+                map.put("类型", "必修");
+            } else {
+                map.put("类型", "选修");
+            }
+            Vector vector = new Vector();
+            vector.addAll(map.values());
+            objects.add(vector);
+        }
+        return objects;
+    }
+
+    public static Vector<Vector> lmListToVector2(List<Lesson> list) {
+        Vector<Vector> objects = new Vector<>();
+        UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new LinkedHashMap<>();
+            Lesson lesson = list.get(i);
+            map.put("星期",lesson.getWeek());
+            map.put("节数",lesson.getTurn());
+            map.put("课程", lesson.getName());
+            String teacher = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
+            map.put("教师",teacher);
+            map.put("教室", lesson.getClassroom());
             if (lesson.getCategory() == "1") {
                 map.put("类型", "必修");
             } else {

@@ -49,7 +49,13 @@ public class LessonComponent extends Box {
         searchBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                String condition = fuzzyQueryField.getText().trim();
+                //判断是否为空
+                if ("".equals(condition)){
+                    JOptionPane.showMessageDialog(jf,"输入为空，请重新输入");
+                    return;
+                }
+                new LessonQueryDialog(condition).show();
             }
         });
         btnPanel.add(searchLabel);

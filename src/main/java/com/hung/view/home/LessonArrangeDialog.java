@@ -1,6 +1,5 @@
 package com.hung.view.home;
 
-import com.hung.pojo.Account;
 import com.hung.pojo.Lesson;
 import com.hung.service.LessonService;
 import com.hung.service.UserService;
@@ -31,7 +30,7 @@ public class LessonArrangeDialog extends JDialog {
     LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
     UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
 
-    public LessonArrangeDialog(JFrame jf, String title, boolean isModel, Account account, Integer lessonId) {
+    public LessonArrangeDialog(JFrame jf, String title, boolean isModel, Integer lessonId) {
         super(jf, title, isModel);
         this.setBounds(760, 390, WIDTH, HEIGHT);
 
