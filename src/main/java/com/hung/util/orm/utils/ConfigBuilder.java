@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @author Hung
  */
-public class XMLConfigBuilder {
+public class ConfigBuilder {
 
     /**
      * 根据传入的参数，得到dao中所有被select注解标注的方法。

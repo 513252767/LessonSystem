@@ -30,9 +30,13 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Account loginAccount(Account account) {
-        account.setPassword(AesUtil.encryptStr(account.getPassword(),account.getName()));
+        String encryptStr = AesUtil.encryptStr(account.getPassword(), account.getName());
+        account.setPassword(encryptStr);
         Account loginAccount = accountDao.loginAccount(account);
-        loginAccount.setPassword(AesUtil.decryptStr(loginAccount.getPassword(),loginAccount.getName()));
+        if (loginAccount!=null){
+            String setPassword = AesUtil.decryptStr(loginAccount.getPassword(), loginAccount.getName());
+            loginAccount.setPassword(setPassword);
+        }
         return loginAccount;
     }
 

@@ -5,7 +5,7 @@ import com.hung.util.jdbc.ConnectionUtils;
 import com.hung.util.orm.config.Mapper;
 import com.hung.util.orm.proxy.MapperProxy;
 import com.hung.util.orm.sqlsession.SqlSession;
-import com.hung.util.orm.utils.XMLConfigBuilder;
+import com.hung.util.orm.utils.ConfigBuilder;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public class DefaultSqlSession<T> implements SqlSession {
     @Override
     public T getMapper(Class daoInterfaceClass) {
         try {
-            mappers = XMLConfigBuilder.loadMapperAnnotation(daoInterfaceClass.getName());
+            mappers = ConfigBuilder.loadMapperAnnotation(daoInterfaceClass.getName());
             connection = new ConnectionUtils().getThreadConnection();
         } catch (Exception e) {
             e.printStackTrace();

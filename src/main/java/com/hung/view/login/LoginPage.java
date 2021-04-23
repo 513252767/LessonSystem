@@ -3,6 +3,7 @@ package com.hung.view.login;
 import com.hung.pojo.Account;
 import com.hung.service.AccountService;
 import com.hung.service.impl.AccountServiceImpl;
+import com.hung.util.PasswordWriter;
 import com.hung.util.SqlFilter;
 import com.hung.util.aop.ServiceFactory;
 import com.hung.util.validateCode.ValidateCode;
@@ -43,7 +44,7 @@ public class LoginPage {
      * 组装视图
      */
     public void init() {
-        //jf.setBounds(1100,500,WIDTH,HEIGHT);
+        jf.setBounds(1100,500,WIDTH,HEIGHT);
         jf.setSize(1000, 500);
         jf.setLocationRelativeTo(null);
         jf.setResizable(false);
@@ -66,7 +67,17 @@ public class LoginPage {
         pBox.add(pLabel);
         pBox.add(passwordField);
         box.add(pBox);
-        box.add(Box.createVerticalStrut(30));
+        box.add(Box.createVerticalStrut(3));
+
+        //创建记住密码框
+        Box bBox = Box.createHorizontalBox();
+        JLabel bLabel = new JLabel("记住密码");
+        JCheckBox checkBox = new JCheckBox();
+        checkBox.setSelected(true);
+        bBox.add(checkBox);
+        bBox.add(bLabel);
+        box.add(bBox);
+        box.add(Box.createVerticalStrut(10));
 
         //创建验证码框
         Box vBox = Box.createHorizontalBox();
@@ -105,7 +116,7 @@ public class LoginPage {
         //登录按钮功能
         loginButton.addActionListener(actionEvent -> {
             String name = nameField.getText().trim();
-            String password = passwordField.getText().trim();
+            String password = String.valueOf(passwordField.getPassword());
 
             if (!validateCodeLogin.getText().trim().equalsIgnoreCase(code)) {
                 //验证码错误
@@ -113,6 +124,7 @@ public class LoginPage {
                 return;
             }
             Account account = new Account();
+
             //判断账号密码是否为空
             if ("".equals(name) || "".equals(password)) {
                 JOptionPane.showMessageDialog(jf, "账号或密码框为空");
@@ -130,8 +142,16 @@ public class LoginPage {
                 }
             }
 
-            if (account.getName() != null) {
-                //登录成功
+            if (account!=null &&account.getName() != null) {
+                //登录成功,记住用户名和密码
+                String recordName = nameField.getText().trim();
+                String recordPassword = String.valueOf(passwordField.getPassword());
+                if (checkBox.isSelected()){
+                    PasswordWriter.write(recordName,recordPassword);
+                }else {
+                    PasswordWriter.write(recordName,"");
+                }
+                //登录成功弹窗
                 JOptionPane.showMessageDialog(jf, "登录成功");
                 new MainPage().init(account);
                 jf.dispose();
@@ -146,6 +166,13 @@ public class LoginPage {
             new RegisterPage().init();
             jf.dispose();
         });
+
+        //账号密码回显
+        String[] info = PasswordWriter.read();
+        String name=info[0];
+        String password=info[1];
+        nameField.setText(name);
+        passwordField.setText(password);
 
         jf.pack();
         jf.setVisible(true);
