@@ -41,7 +41,7 @@ public class ServiceFactory<T> {
                     transactionManager.rollback();
                     String info = LocalDateTime.now() + "  " + Thread.currentThread().toString() + " " + e.getMessage() + "  " + e.getCause();
                     try {
-                        LogWriter.log(info);
+                        LogWriter.log(info+"\n");
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }

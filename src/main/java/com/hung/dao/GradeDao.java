@@ -28,7 +28,7 @@ public interface GradeDao {
      * @param grade
      * @return
      */
-    @Update("update grade set grade=?,condition=2 where lessonId=? and userId=?")
+    @Update("update grade set grade=?,`condition`=2 where lessonId=? and userId=?")
     Integer addGrade(String grade, Integer lessonId, Integer userId);
 
     /**
@@ -54,7 +54,7 @@ public interface GradeDao {
      * @param userId
      * @return
      */
-    @Insert("insert into grade (id,lessonId,userId,grade,condition) values(default,?,?,0,1)")
+    @Insert("insert into grade (id,lessonId,userId,grade,`condition`) values (default,?,?,\'0\',\'1\');")
     Integer chooseLesson(Integer lessonId,Integer userId);
 
 }

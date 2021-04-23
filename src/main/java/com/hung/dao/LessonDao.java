@@ -43,8 +43,7 @@ public interface LessonDao {
      * @param lesson
      * @return
      */
-    @Update("UPDATE lesson SET (week,turn,name,teacher,number,classroom,category) value(#{week},#{turn},#{name},#{teacher}," +
-            "#{number},#{classroom},#{category}) where id=#{id};")
+    @Update("UPDATE lesson SET week=#{week},turn=#{turn},name=#{name},teacher=#{teacher},number=#{number},classroom=#{classroom},category=#{category} where id=#{id};")
     Integer updateLesson(Lesson lesson);
 
     /**
@@ -54,7 +53,7 @@ public interface LessonDao {
      * @param category
      * @return
      */
-    @Select("select week,turn,name,teacher,number,classroom,category from lesson where name like ? or teacher like ? or category like ?;")
+    @Select("select week,turn,name,teacher,number,classroom,category from lesson where name like ? or teacher like ? or `category` like ?;")
     List<Lesson> queryAllLessonByCondition(String className,String teacherId,String category);
 
     /**
@@ -62,7 +61,7 @@ public interface LessonDao {
      * @param userId
      * @return
      */
-    @Select("SELECT id,week,turn,name,teacher,number,classroom,category FROM lesson WHERE id!=(SELECT lessonId FROM `grade` WHERE userId=?) AND category = 2;")
+    @Select("SELECT id,week,turn,name,teacher,number,classroom,`category` FROM lesson WHERE id!=(SELECT lessonId FROM `grade` WHERE userId=?) AND `category` = 2;")
     List<Lesson> queryAllOptionalCourse(Integer userId);
 }
 

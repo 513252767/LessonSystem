@@ -127,7 +127,7 @@ public class PersonComponent extends Box {
             }
             //封装account和user，更新信息
             Account accountRevise = new Account(account.getId(), nameField.getText().trim(), passwordNow);
-            User userRevise = new User(nickNameNow, genderNow, teamNow, majorNow, introductionNow, account.getId());
+            User userRevise = new User(account.getId(),nickNameNow, genderNow, teamNow, majorNow, introductionNow, account.getId());
             if (accountService.updateAccount(accountRevise) && userService.updateUser(userRevise)) {
                 JOptionPane.showMessageDialog(jf, "成功修改!");
             } else {

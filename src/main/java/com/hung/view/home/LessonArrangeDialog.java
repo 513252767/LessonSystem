@@ -136,7 +136,7 @@ public class LessonArrangeDialog extends JDialog {
 
             //执行必要判断
             try {
-                if (Integer.parseInt(categoryNow) != 1 || (Integer.parseInt(categoryNow) != 2)) {
+                if (Integer.parseInt(categoryNow) != 1 && (Integer.parseInt(categoryNow) != 2)) {
                     JOptionPane.showMessageDialog(jf, "课程种类设置有误，请重新设置");
                 }
                 if (Integer.parseInt(turnNow) < 1 || Integer.parseInt(turnNow) > 5) {

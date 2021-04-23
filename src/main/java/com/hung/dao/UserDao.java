@@ -24,7 +24,7 @@ public interface UserDao {
      * @param user
      * @return
      */
-    @Update("update user set nickName=#{nickName},gender=#{gender},birthday=#{birthday},desc=#{desc} where id=#{id}")
+    @Update("update user set name=#{name},gender=#{gender},major=#{major},team=#{team},introduction=#{introduction} where id=#{id}")
     Integer updateUser(User user);
 
     /**

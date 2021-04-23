@@ -64,6 +64,7 @@ public class MainPage {
         DefaultMutableTreeNode lessonManage = new DefaultMutableTreeNode("课程管理");
         DefaultMutableTreeNode examQuery = new DefaultMutableTreeNode("查询考试");
         DefaultMutableTreeNode examManage = new DefaultMutableTreeNode("考试管理");
+        DefaultMutableTreeNode lessonChoose = new DefaultMutableTreeNode("选修选课");
 
         //添加结点
         root.add(userManage);
@@ -72,6 +73,7 @@ public class MainPage {
             //学生特有
             root.add(part);
             root.add(examQuery);
+            root.add(lessonChoose);
         } else {
             //教师特有
             root.add(lessonManage);
@@ -85,7 +87,6 @@ public class MainPage {
         jTree.addTreeSelectionListener(selectionEvent -> {
             //得到结点对象
             Object lastPathComponent = selectionEvent.getNewLeadSelectionPath().getLastPathComponent();
-
             if (lastPathComponent.equals(part)) {
                 //课程表部分
                 splitPane.setRightComponent(new LessonComponent(jf, account, splitPane));
@@ -106,6 +107,9 @@ public class MainPage {
                 //考试管理部分
                 Integer lessonId = chooseTest();
                 splitPane.setRightComponent(new LessonGradeComponent(jf, lessonId));
+                splitPane.setDividerLocation(150);
+            }else if (lastPathComponent.equals(lessonChoose)){
+                splitPane.setRightComponent(new LessonChooseComponent(jf,account));
                 splitPane.setDividerLocation(150);
             }
         });

@@ -29,20 +29,20 @@ public class LessonChooseComponent extends Box {
     private Vector<Vector> data = new Vector<>();
     private DefaultTableModel tableModel;
 
-    JFrame jf=null;
-    Account account=null;
+    JFrame jf = null;
+    Account account = null;
 
     LessonService lessonService = new ServiceFactory<>(new LessonServiceImpl()).getService();
     GradeService gradeService = new ServiceFactory<>(new GradeServiceImpl()).getService();
 
-    public LessonChooseComponent(JFrame jf,Account account) {
+    public LessonChooseComponent(JFrame jf, Account account) {
         super(BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
-        this.jf=jf;
-        this.account=account;
+        this.jf = jf;
+        this.account = account;
 
         //组装选课表格
-        String[] titles = {"课程Id"," 星期", " 节数 ", " 课程名称 "," 教师 "," 教室 ","  "};
+        String[] titles = {"课程Id", " 星期", " 节数 ", " 课程名称 ", " 教师 ", " 教室 ", "  "};
         for (String t : titles) {
             title.add(t);
         }
@@ -56,12 +56,7 @@ public class LessonChooseComponent extends Box {
 
         tableModel = new DefaultTableModel(data, title);
         //设置table
-        table = new JTable(tableModel) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        table = new JTable(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //选择按钮
         table.getColumnModel().getColumn(6).setCellEditor(new MyRender());
@@ -80,7 +75,7 @@ public class LessonChooseComponent extends Box {
         private JButton button = null;
 
         public MyRender() {
-            button = new JButton("安排考试、修改课程信息");
+            button = new JButton("选课");
             button.addActionListener(this);
         }
 
@@ -100,30 +95,33 @@ public class LessonChooseComponent extends Box {
         @Override
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
-            //获取id
-            Integer lessonId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
-            //查询相应课程
-            Lesson lesson = lessonService.queryLessonById(lessonId);
-            //查询学生已有课程
-            List<String> lessonIds = gradeService.queryLessonByUserId(account.getId());
-            //根据已选课程查看是否科室被占
-            for (String id:lessonIds){
-                Lesson lessonChoice = lessonService.queryLessonById(Integer.valueOf(id));
-                if (!lesson.getWeek().equals(lessonChoice.getWeek()) && !lesson.getTurn().equals(lessonChoice.getTurn())){
-                    //判断当前课的人数
-                    Integer nums = gradeService.queryNumsByLessonId(lessonId);
-                    if (Integer.parseInt(lesson.getNumber())>nums){
-                        //可以选择
-                        if (gradeService.chooseLesson(lessonId,account.getId())){
-                            JOptionPane.showMessageDialog(jf,"选课成功!");
-                        }else {
-                            JOptionPane.showMessageDialog(jf,"某些特殊原因，你选课失败");
+            int i = JOptionPane.showConfirmDialog(jf, "你确定选择吗", "选课", JOptionPane.YES_NO_OPTION);
+            if (i==JOptionPane.YES_OPTION){
+                //获取id
+                Integer lessonId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+                //查询相应课程
+                Lesson lesson = lessonService.queryLessonById(lessonId);
+                //查询学生已有课程
+                List<String> lessonIds = gradeService.queryLessonByUserId(account.getId());
+                //根据已选课程查看是否科室被占
+                for (String id : lessonIds) {
+                    Lesson lessonChoice = lessonService.queryLessonById(Integer.valueOf(id));
+                    if (!lesson.getWeek().equals(lessonChoice.getWeek()) && !lesson.getTurn().equals(lessonChoice.getTurn())) {
+                        //判断当前课的人数
+                        Integer nums = gradeService.queryNumsByLessonId(lessonId);
+                        if (Integer.parseInt(lesson.getNumber()) > nums) {
+                            //可以选择
+                            if (gradeService.chooseLesson(lessonId, account.getId())) {
+                                JOptionPane.showMessageDialog(jf, "选课成功!");
+                            } else {
+                                JOptionPane.showMessageDialog(jf, "某些特殊原因，你选课失败");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(jf, "你选择的课人数已满");
                         }
-                    }else {
-                        JOptionPane.showMessageDialog(jf,"你选择的课人数已满");
+                    } else {
+                        JOptionPane.showMessageDialog(jf, "你所选课与已有课时间冲突");
                     }
-                }else {
-                    JOptionPane.showMessageDialog(jf,"你所选课与已有课时间冲突");
                 }
             }
         }
