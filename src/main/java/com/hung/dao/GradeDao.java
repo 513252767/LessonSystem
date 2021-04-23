@@ -1,5 +1,6 @@
 package com.hung.dao;
 
+import com.hung.util.orm.annotations.Insert;
 import com.hung.util.orm.annotations.Select;
 import com.hung.util.orm.annotations.Update;
 
@@ -38,4 +39,22 @@ public interface GradeDao {
      */
     @Select("select lessonId from grade where userId=?")
     List<String> queryAllTestByUserId(Integer userId);
+
+    /**
+     * 根据课程id查询已有人数
+     * @param lessonId
+     * @return
+     */
+    @Select("select count(*) from grade where lessonId=?")
+    Integer queryNumsByLessonId(Integer lessonId);
+
+    /**
+     * 选课
+     * @param lessonId
+     * @param userId
+     * @return
+     */
+    @Insert("insert into grade (id,lessonId,userId,grade,condition) values(default,?,?,0,1)")
+    Integer chooseLesson(Integer lessonId,Integer userId);
+
 }

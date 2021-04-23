@@ -76,9 +76,18 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lesson> queryLessonByCondition(String condition) {
         condition="%"+condition+"%";
-        List<Lesson> lessons = lessonDao.queryAllLessonByCondition(condition, condition, condition);
-        return lessons;
+        return lessonDao.queryAllLessonByCondition(condition, condition, condition);
     }
 
-
+    /**
+     * 查询所有本人未选的选修课
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Lesson> queryAllOptionalCourse(Integer userId) {
+        //查询所有未选选修课程
+        return lessonDao.queryAllOptionalCourse(userId);
+    }
 }

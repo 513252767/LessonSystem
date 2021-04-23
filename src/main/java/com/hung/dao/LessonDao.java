@@ -56,5 +56,13 @@ public interface LessonDao {
      */
     @Select("select week,turn,name,teacher,number,classroom,category from lesson where name like ? or teacher like ? or category like ?;")
     List<Lesson> queryAllLessonByCondition(String className,String teacherId,String category);
+
+    /**
+     * 查询所有未选选修课程
+     * @param userId
+     * @return
+     */
+    @Select("SELECT id,week,turn,name,teacher,number,classroom,category FROM lesson WHERE id!=(SELECT lessonId FROM `grade` WHERE userId=?) AND category = 2;")
+    List<Lesson> queryAllOptionalCourse(Integer userId);
 }
 

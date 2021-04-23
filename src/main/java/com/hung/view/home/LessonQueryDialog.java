@@ -28,7 +28,7 @@ public class LessonQueryDialog extends JDialog {
         Box box = Box.createHorizontalBox();
 
         //组装考试各人表格
-        String[] titles = {"星期", " 节数 ", " 课程名称 "," 教师 "," 教室 "," 种类 "};
+        String[] titles = {" 星期", " 节数 ", " 课程名称 "," 教师 "," 教室 "," 种类 "};
         for (String t : titles) {
             title.add(t);
         }

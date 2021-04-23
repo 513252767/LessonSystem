@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author Hung
@@ -39,7 +39,7 @@ public class ServiceFactory<T> {
                     return value;
                 } catch (Exception e) {
                     transactionManager.rollback();
-                    String info = LocalDate.now() + " " + Thread.currentThread().toString() + e.getMessage() + "  " + e.getCause();
+                    String info = LocalDateTime.now() + "  " + Thread.currentThread().toString() + " " + e.getMessage() + "  " + e.getCause();
                     try {
                         LogWriter.log(info);
                     } catch (IOException ioException) {

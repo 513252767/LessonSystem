@@ -50,8 +50,6 @@ public class MapperProxy implements InvocationHandler {
             throw new IllegalArgumentException("传入的参数有误");
         }
         //调用工具类执行相应方法
-        System.out.println(method);
-
         Type[] genericParameterTypes = method.getGenericParameterTypes();
 
         //根据不同注解实现不同功能

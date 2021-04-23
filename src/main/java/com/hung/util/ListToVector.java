@@ -96,6 +96,26 @@ public class ListToVector {
         return objects;
     }
 
+    public static Vector<Vector> lmListToVector3(List<Lesson> list) {
+        Vector<Vector> objects = new Vector<>();
+        UserService userService = new ServiceFactory<>(new UserServiceImpl()).getService();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new LinkedHashMap<>();
+            Lesson lesson = list.get(i);
+            map.put("id",lesson.getId().toString());
+            map.put("星期",lesson.getWeek());
+            map.put("节数",lesson.getTurn());
+            map.put("课程", lesson.getName());
+            String teacher = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
+            map.put("教师",teacher);
+            map.put("教室", lesson.getClassroom());
+            Vector vector = new Vector();
+            vector.addAll(map.values());
+            objects.add(vector);
+        }
+        return objects;
+    }
+
     public static Vector<Vector> uListToVector(List<User> list) {
         Vector<Vector> objects = new Vector<>();
         for (int i = 0; i < list.size(); i++) {

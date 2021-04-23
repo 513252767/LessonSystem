@@ -91,7 +91,7 @@ public class Executor {
                     if (genericParameterType == Integer.class) {
                         pstm.setInt(j, (Integer) o);
                         j++;
-                    } else {
+                    } else if (genericParameterType == String.class){
                         pstm.setString(j, o.toString());
                         j++;
                     }
@@ -111,7 +111,7 @@ public class Executor {
                 } else if (isContain(pclass)) {
                     E obj = (E) rs.getString(1);
                     list.add(obj);
-                }else {
+                } else {
                     E obj = pclass.newInstance();
                     //取出结果集的元信息：ResultSetMetaData
                     ResultSetMetaData rsmd = rs.getMetaData();
@@ -317,7 +317,7 @@ public class Executor {
                     if (genericParameterType == Integer.class) {
                         pstm.setInt(j, (Integer) o);
                         j++;
-                    } else {
+                    } else if (genericParameterType == String.class) {
                         pstm.setString(j, o.toString());
                         j++;
                     }

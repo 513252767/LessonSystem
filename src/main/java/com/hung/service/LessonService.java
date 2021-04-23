@@ -46,4 +46,12 @@ public interface LessonService {
      * @return
      */
     List<Lesson> queryLessonByCondition(String condition);
+
+    /**
+     * 查询所有本人未选的选修课
+     * @param userId
+     * @return
+     */
+    List<Lesson> queryAllOptionalCourse(Integer userId);
+
 }

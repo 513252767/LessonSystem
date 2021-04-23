@@ -43,4 +43,38 @@ public class GradeServiceImpl implements GradeService {
     public Boolean addGrade(Integer lessonId, Integer userId, String grade) {
         return gradeDao.addGrade(grade, userId, lessonId) > 0;
     }
+
+    /**
+     * 根据学生id查询已有课程
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<String> queryLessonByUserId(Integer userId) {
+        return gradeDao.queryAllTestByUserId(userId);
+    }
+
+    /**
+     * 根据课程id查询查询已选人数
+     *
+     * @param lessonId
+     * @return
+     */
+    @Override
+    public Integer queryNumsByLessonId(Integer lessonId) {
+        return gradeDao.queryNumsByLessonId(lessonId);
+    }
+
+    /**
+     * 选课
+     *
+     * @param lessonId
+     * @param userId
+     * @return
+     */
+    @Override
+    public Boolean chooseLesson(Integer lessonId, Integer userId) {
+        return gradeDao.chooseLesson(lessonId,userId)>0;
+    }
 }

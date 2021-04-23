@@ -15,7 +15,6 @@ public class LogWriter {
     /**
      * 可以写作配置：true写文件; false输出控制台
      */
-    private static boolean fileLog = true;
     private static String logFileName = "log/error.log";
 
     public static void log(String info) throws IOException {
@@ -24,14 +23,10 @@ public class LogWriter {
     }
 
     public static OutputStream getOutputStream() throws IOException {
-        if (fileLog) {
-            File file = new File(logFileName);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            return new FileOutputStream(file);
-        } else {
-            return System.out;
+        File file = new File(logFileName);
+        if (!file.exists()) {
+            file.createNewFile();
         }
+        return new FileOutputStream(file,true);
     }
 }

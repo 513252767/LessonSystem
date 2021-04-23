@@ -23,4 +23,27 @@ public interface GradeService {
      * @return
      */
     Boolean addGrade(Integer lessonId, Integer userId, String grade);
+
+    /**
+     * 根据学生id查询已有课程
+     * @param userId
+     * @return
+     */
+    List<String> queryLessonByUserId(Integer userId);
+
+
+    /**
+     * 根据课程id查询查询已选人数
+     * @param lessonId
+     * @return
+     */
+    Integer queryNumsByLessonId(Integer lessonId);
+
+    /**
+     * 选课
+     * @param lessonId
+     * @param userId
+     * @return
+     */
+    Boolean chooseLesson(Integer lessonId,Integer userId);
 }
