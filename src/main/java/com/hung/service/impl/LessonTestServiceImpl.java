@@ -59,7 +59,9 @@ public class LessonTestServiceImpl implements LessonTestService {
         if (lessonIds.size() != 0) {
             for (String lessonId : lessonIds) {
                 LessonTest lessonTest = lessonTestDao.queryTestByLessonId(Integer.valueOf(lessonId));
-                tests.add(lessonTest);
+                if (lessonTest!=null){
+                    tests.add(lessonTest);
+                }
             }
             return tests;
         }

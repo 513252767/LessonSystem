@@ -16,7 +16,7 @@ public interface LessonDao {
      * @param accountId
      * @return
      */
-    @Select("SELECT week,turn,name,teacher,number,classroom,category FROM lesson WHERE  id=(SELECT lessonid FROM grade WHERE userid = ?)  ORDER BY turn,week;")
+    @Select("SELECT week,turn,name,teacher,number,classroom,category FROM lesson WHERE id in (SELECT lessonid FROM grade WHERE userid = ?)  ORDER BY turn,week;")
     List<Lesson> queryAllLesson(Integer accountId);
 
     /**
@@ -61,7 +61,7 @@ public interface LessonDao {
      * @param userId
      * @return
      */
-    @Select("SELECT id,week,turn,name,teacher,number,classroom,`category` FROM lesson WHERE id!=(SELECT lessonId FROM `grade` WHERE userId=?) AND `category` = 2;")
+    @Select("SELECT id,week,turn,name,teacher,number,classroom,`category` FROM lesson WHERE id not in (SELECT lessonId FROM `grade` WHERE userId=?) AND `category` = 2;")
     List<Lesson> queryAllOptionalCourse(Integer userId);
 }
 

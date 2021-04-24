@@ -28,7 +28,7 @@ public interface GradeDao {
      * @param grade
      * @return
      */
-    @Update("update grade set grade=?,`condition`=2 where lessonId=? and userId=?")
+    @Update("update grade set grade=?,`condition`='2' where lessonId=? and userId=?")
     Integer addGrade(String grade, Integer lessonId, Integer userId);
 
     /**
