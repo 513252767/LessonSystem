@@ -4,10 +4,13 @@ import com.hung.pojo.Account;
 import com.hung.util.orm.annotations.Insert;
 import com.hung.util.orm.annotations.Select;
 import com.hung.util.orm.annotations.Update;
+import com.hung.util.spring.annotation.Repository;
+
 
 /**
  * @author Hung
  */
+@Repository("accountDao")
 public interface AccountDao {
     /**
      * 登录

@@ -12,7 +12,7 @@ public interface SqlSession<T> {
      * @param daoInterfaceClass dao的接口字节码
      * @return
      */
-    T getMapper(Class<T> daoInterfaceClass);
+    T getMapper(Class<?> daoInterfaceClass);
 
     /**
      * 释放资源

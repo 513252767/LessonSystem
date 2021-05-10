@@ -12,6 +12,8 @@ public class Grade {
     Integer lessonId;
     Integer userId;
     String grade;
+    String comment;
+    String teacherGrade;
     /**
      *
      */
@@ -76,6 +78,22 @@ public class Grade {
         this.grade = grade;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getTeacherGrade() {
+        return teacherGrade;
+    }
+
+    public void setTeacherGrade(String teacherGrade) {
+        this.teacherGrade = teacherGrade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -85,12 +103,12 @@ public class Grade {
             return false;
         }
         Grade grade1 = (Grade) o;
-        return Objects.equals(id, grade1.id) && Objects.equals(lessonId, grade1.lessonId) && Objects.equals(userId, grade1.userId) && Objects.equals(grade, grade1.grade) && Objects.equals(condition, grade1.condition);
+        return Objects.equals(id, grade1.id) && Objects.equals(lessonId, grade1.lessonId) && Objects.equals(userId, grade1.userId) && Objects.equals(grade, grade1.grade) && Objects.equals(comment, grade1.comment) && Objects.equals(teacherGrade, grade1.teacherGrade) && Objects.equals(condition, grade1.condition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lessonId, userId, grade, condition);
+        return Objects.hash(id, lessonId, userId, grade, comment, teacherGrade, condition);
     }
 
     @Override
@@ -100,6 +118,8 @@ public class Grade {
                 ", lessonId=" + lessonId +
                 ", userId=" + userId +
                 ", grade='" + grade + '\'' +
+                ", comment='" + comment + '\'' +
+                ", teacherGrade='" + teacherGrade + '\'' +
                 ", condition='" + condition + '\'' +
                 '}';
     }

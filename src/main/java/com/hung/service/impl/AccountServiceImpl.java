@@ -1,26 +1,29 @@
 package com.hung.service.impl;
 
 import com.hung.dao.AccountDao;
+import com.hung.dao.MenuDao;
 import com.hung.dao.UserDao;
 import com.hung.pojo.Account;
+import com.hung.pojo.Menu;
 import com.hung.service.AccountService;
 import com.hung.util.aes.AesUtil;
-import com.hung.util.orm.sqlsession.SqlSession;
-import com.hung.util.orm.sqlsession.defaults.DefaultSqlSession;
+import com.hung.util.spring.annotation.Autowired;
+import com.hung.util.spring.annotation.Service;
+
+import java.util.List;
 
 /**
  * @author Hung
  */
+@Service("accountService")
 public class AccountServiceImpl implements AccountService {
-    /**
-     * 使用工厂创建sqlSession对象
-     */
-    SqlSession sqlSession = new DefaultSqlSession();
-    /**
-     * 使用SqlSession创建Dao接口的代理对象
-     */
-    AccountDao accountDao = (AccountDao) sqlSession.getMapper(AccountDao.class);
-    UserDao userDao = (UserDao) new DefaultSqlSession<>().getMapper(UserDao.class);
+
+    @Autowired
+    AccountDao accountDao;
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    MenuDao menuDao;
 
     /**
      * 登录
@@ -47,16 +50,16 @@ public class AccountServiceImpl implements AccountService {
      * @return
      */
     @Override
-    public Integer registerAccount(Account account) {
+    public Boolean registerAccount(Account account) {
         account.setPassword(AesUtil.encryptStr(account.getPassword(),account.getName()));
         int flag = 0;
         if (accountDao.registerAccount(account) > 0) {
             //注册成功,顺便注册用户
-            if (userDao.registerUser(account.getId()) > 0) {
+            if (userDao.registerUser() > 0) {
                 flag = 1;
             }
         }
-        return flag;
+        return flag>0;
     }
 
     /**
@@ -68,7 +71,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean updateAccount(Account account) {
         account.setPassword(AesUtil.encryptStr(account.getPassword(),account.getName()));
-        int i = accountDao.updateAccount(account);
-        return i > 0;
+        return accountDao.updateAccount(account) > 0;
+    }
+
+    /**
+     * 查询菜单
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<Menu> menuInfo(Integer parentId,Integer roleId) {
+        return menuDao.menuInfo(parentId,roleId);
     }
 }

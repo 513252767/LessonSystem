@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author Hung
  */
-public class DefaultSqlSession<T> implements SqlSession {
+public class DefaultSqlSession<T> implements SqlSession<T> {
 
     private Map<String, Mapper> mappers;
     private Connection connection;
@@ -32,7 +32,7 @@ public class DefaultSqlSession<T> implements SqlSession {
      * @return
      */
     @Override
-    public T getMapper(Class daoInterfaceClass) {
+    public T getMapper(Class<?> daoInterfaceClass) {
         try {
             mappers = ConfigBuilder.loadMapperAnnotation(daoInterfaceClass.getName());
             connection = new ConnectionUtils().getThreadConnection();
@@ -42,7 +42,6 @@ public class DefaultSqlSession<T> implements SqlSession {
         //代理谁就用谁的类加载器，实现相同的接口
         return (T) Proxy.newProxyInstance(daoInterfaceClass.getClassLoader(), new Class[]{daoInterfaceClass},
                 new MapperProxy(mappers, connection));
-
     }
 
     /**

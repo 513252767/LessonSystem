@@ -1,5 +1,7 @@
 package com.hung.util.orm.config;
 
+import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -11,7 +13,19 @@ public class Mapper {
      * SQL和全限定类名
      */
     private String queryString;
-    private String resultType;
+    private Type resultType;
+    private Type[] genericParameterTypes;
+
+    public Mapper() {
+    }
+
+    public Type[] getGenericParameterTypes() {
+        return genericParameterTypes;
+    }
+
+    public void setGenericParameterTypes(Type[] genericParameterTypes) {
+        this.genericParameterTypes = genericParameterTypes;
+    }
 
     public String getQueryString() {
         return queryString;
@@ -21,11 +35,11 @@ public class Mapper {
         this.queryString = queryString;
     }
 
-    public String getResultType() {
+    public Type getResultType() {
         return resultType;
     }
 
-    public void setResultType(String resultType) {
+    public void setResultType(Type resultType) {
         this.resultType = resultType;
     }
 
@@ -38,11 +52,22 @@ public class Mapper {
             return false;
         }
         Mapper mapper = (Mapper) o;
-        return Objects.equals(queryString, mapper.queryString) && Objects.equals(resultType, mapper.resultType);
+        return Objects.equals(queryString, mapper.queryString) && Objects.equals(resultType, mapper.resultType) && Arrays.equals(genericParameterTypes, mapper.genericParameterTypes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(queryString, resultType);
+        int result = Objects.hash(queryString, resultType);
+        result = 31 * result + Arrays.hashCode(genericParameterTypes);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Mapper{" +
+                "queryString='" + queryString + '\'' +
+                ", resultType=" + resultType +
+                ", genericParameterTypes=" + Arrays.toString(genericParameterTypes) +
+                '}';
     }
 }

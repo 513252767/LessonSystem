@@ -4,8 +4,8 @@ import com.hung.dao.GradeDao;
 import com.hung.dao.LessonTestDao;
 import com.hung.pojo.LessonTest;
 import com.hung.service.LessonTestService;
-import com.hung.util.orm.sqlsession.SqlSession;
-import com.hung.util.orm.sqlsession.defaults.DefaultSqlSession;
+import com.hung.util.spring.annotation.Autowired;
+import com.hung.util.spring.annotation.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +13,12 @@ import java.util.List;
 /**
  * @author Hung
  */
+@Service("lessonTestService")
 public class LessonTestServiceImpl implements LessonTestService {
-
-    /**
-     * 使用工厂创建sqlSession对象
-     */
-    SqlSession sqlSession = new DefaultSqlSession();
-    /**
-     * 使用SqlSession创建Dao接口的代理对象
-     */
-    LessonTestDao lessonTestDao = (LessonTestDao) sqlSession.getMapper(LessonTestDao.class);
-    GradeDao gradeDao = (GradeDao) sqlSession.getMapper(GradeDao.class);
+    @Autowired
+    LessonTestDao lessonTestDao;
+    @Autowired
+    GradeDao gradeDao;
 
     /**
      * 设置考试事件

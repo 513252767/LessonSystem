@@ -2,23 +2,18 @@ package com.hung.service.impl;
 
 import com.hung.dao.GradeDao;
 import com.hung.service.GradeService;
-import com.hung.util.orm.sqlsession.SqlSession;
-import com.hung.util.orm.sqlsession.defaults.DefaultSqlSession;
+import com.hung.util.spring.annotation.Autowired;
+import com.hung.util.spring.annotation.Service;
 
 import java.util.List;
 
 /**
  * @author Hung
  */
+@Service("gradeService")
 public class GradeServiceImpl implements GradeService {
-    /**
-     * 使用工厂创建sqlSession对象
-     */
-    SqlSession sqlSession = new DefaultSqlSession();
-    /**
-     * 使用SqlSession创建Dao接口的代理对象
-     */
-    GradeDao gradeDao = (GradeDao) sqlSession.getMapper(GradeDao.class);
+    @Autowired
+    GradeDao gradeDao;
 
     /**
      * 根据课程id查询所有学生的信息

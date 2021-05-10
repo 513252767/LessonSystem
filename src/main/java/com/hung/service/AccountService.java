@@ -1,6 +1,9 @@
 package com.hung.service;
 
 import com.hung.pojo.Account;
+import com.hung.pojo.Menu;
+
+import java.util.List;
 
 /**
  * @author Hung
@@ -20,7 +23,7 @@ public interface AccountService {
      * @param account
      * @return
      */
-    Integer registerAccount(Account account);
+    Boolean registerAccount(Account account);
 
     /**
      * 更新账户信息
@@ -29,4 +32,12 @@ public interface AccountService {
      * @return
      */
     boolean updateAccount(Account account);
+
+    /**
+     * 查询菜单
+     * @param parentId
+     * @param roleId
+     * @return
+     */
+    List<Menu> menuInfo(Integer parentId,Integer roleId);
 }

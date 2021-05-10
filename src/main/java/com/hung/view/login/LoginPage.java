@@ -6,6 +6,9 @@ import com.hung.service.impl.AccountServiceImpl;
 import com.hung.util.PasswordWriter;
 import com.hung.util.SqlFilter;
 import com.hung.util.aop.ServiceFactory;
+import com.hung.util.spring.annotation.Controller;
+import com.hung.util.spring.ioc.ApplicationContext;
+import com.hung.util.spring.ioc.ApplicationContextFactory;
 import com.hung.util.validateCode.ValidateCode;
 import com.hung.view.home.MainPage;
 
@@ -18,6 +21,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Hung
  */
+@Controller("loginPage")
 public class LoginPage {
     AccountService accountService = new ServiceFactory<>(new AccountServiceImpl()).getService();
     /**
@@ -179,6 +183,8 @@ public class LoginPage {
     }
 
     public static void main(String[] args) {
-        new LoginPage().init();
+        ApplicationContext applicationContext = ApplicationContextFactory.getApplication();
+        LoginPage loginPage = (LoginPage) applicationContext.getBean("loginPage");
+        loginPage.init();
     }
 }

@@ -3,12 +3,14 @@ package com.hung.dao;
 import com.hung.pojo.Lesson;
 import com.hung.util.orm.annotations.Select;
 import com.hung.util.orm.annotations.Update;
+import com.hung.util.spring.annotation.Repository;
 
 import java.util.List;
 
 /**
  * @author Hung
  */
+@Repository("lessonDao")
 public interface LessonDao {
     /**
      * 按照accountId和第几节课查询课程

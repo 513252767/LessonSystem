@@ -3,12 +3,14 @@ package com.hung.dao;
 import com.hung.util.orm.annotations.Insert;
 import com.hung.util.orm.annotations.Select;
 import com.hung.util.orm.annotations.Update;
+import com.hung.util.spring.annotation.Repository;
 
 import java.util.List;
 
 /**
  * @author Hung
  */
+@Repository("gradeDao")
 public interface GradeDao {
     /**
      * 根据课程id查询所有学生的信息
@@ -28,7 +30,7 @@ public interface GradeDao {
      * @param grade
      * @return
      */
-    @Update("update grade set grade=?,`condition`='2' where lessonId=? and userId=?")
+    @Update("update grade set grade=?,condition='2' where lessonId=? and userId=?")
     Integer addGrade(String grade, Integer lessonId, Integer userId);
 
     /**

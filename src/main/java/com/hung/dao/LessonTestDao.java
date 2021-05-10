@@ -3,12 +3,14 @@ package com.hung.dao;
 import com.hung.pojo.LessonTest;
 import com.hung.util.orm.annotations.Insert;
 import com.hung.util.orm.annotations.Select;
+import com.hung.util.spring.annotation.Repository;
 
 import java.util.List;
 
 /**
  * @author Hung
  */
+@Repository("lessonTestDao")
 public interface LessonTestDao {
     /**
      * 设置考试事件
@@ -16,7 +18,7 @@ public interface LessonTestDao {
      * @param lessonTest
      * @return
      */
-    @Insert("INSERT into lessonTest set values(default,#{lessonId},#{testTime});")
+    @Insert("INSERT into lessonTest (id,lessonId,testTime) values (default,#{lessonId},#{testTime});")
     Integer addLessonTest(LessonTest lessonTest);
 
     /**

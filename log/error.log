@@ -26,3 +26,19 @@
 2021-04-24T09:46:45.885410500  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLException: Subquery returns more than 1 row
 2021-04-24T09:46:58.913706800  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLException: Subquery returns more than 1 row
 2021-04-24T09:48:32.710253700  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLException: Subquery returns more than 1 row
+2021-04-24T11:09:09.960030  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values(default,1,"4月6日 14;00")' at line 1
+2021-04-24T11:12:04.939625300  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLException: Field 'id' doesn't have a default value
+2021-04-24T15:25:03.654624500  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.lang.NullPointerException
+2021-04-24T15:26:56.160365500  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.lang.NullPointerException
+2021-04-24T15:59:07.593138400  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.lang.NullPointerException
+2021-04-24T16:43:04.877371100  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'condition='2' where lessonId=1 and userId=1' at line 1
+2021-04-24T16:43:18.091809  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'condition='2' where lessonId=1 and userId=1' at line 1
+2021-04-24T16:44:50.766509200  Thread[AWT-EventQueue-0,6,main] null  java.lang.RuntimeException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'condition='2' where lessonId=1 and userId=1' at line 1
+2021-05-09T11:39:55.818025200  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T11:42:53.483528700  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T11:43:24.379614400  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T11:47:13.222459900  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T11:48:40.759850200  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T11:56:46.983975100  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T11:57:16.641453  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-09T23:02:29.523081500  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException

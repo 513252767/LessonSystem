@@ -113,14 +113,18 @@ public class LessonChooseComponent extends Box {
                             //可以选择
                             if (gradeService.chooseLesson(lessonId, account.getId())) {
                                 JOptionPane.showMessageDialog(jf, "选课成功!");
+                                return;
                             } else {
                                 JOptionPane.showMessageDialog(jf, "某些特殊原因，你选课失败");
+                                return;
                             }
                         } else {
                             JOptionPane.showMessageDialog(jf, "你选择的课人数已满");
+                            return;
                         }
                     } else {
                         JOptionPane.showMessageDialog(jf, "你所选课与已有课时间冲突");
+                        return;
                     }
                 }
             }

@@ -105,9 +105,11 @@ public class MainPage {
                 splitPane.setDividerLocation(150);
             } else if (lastPathComponent.equals(examManage)) {
                 //考试管理部分
-                Integer lessonId = chooseTest();
-                splitPane.setRightComponent(new LessonGradeComponent(jf, lessonId));
-                splitPane.setDividerLocation(150);
+                Integer lessonId = chooseTest(account);
+                if (lessonId!=null){
+                    splitPane.setRightComponent(new LessonGradeComponent(jf, lessonId));
+                    splitPane.setDividerLocation(150);
+                }
             }else if (lastPathComponent.equals(lessonChoose)){
                 splitPane.setRightComponent(new LessonChooseComponent(jf,account));
                 splitPane.setDividerLocation(150);
@@ -127,7 +129,7 @@ public class MainPage {
      *
      * @return
      */
-    public Integer chooseTest() {
+    public Integer chooseTest(Account account) {
         //查询所有考试
         List<LessonTest> lessonTests = lessonTestService.queryAllTest();
         String[] options = new String[lessonTests.size()];
@@ -135,10 +137,32 @@ public class MainPage {
             LessonTest lessonTest = lessonTests.get(i);
             Integer lessonId = lessonTest.getLessonId();
             Lesson lesson = lessonService.queryLessonById(lessonId);
-            options[i] = lessonId + lesson.getName();
+            if (lesson.getTeacher() .equals(account.getId().toString())){
+                options[i] = lessonId + lesson.getName();
+            }
         }
-        int optionDialog = JOptionPane.showOptionDialog(jf, "请选择考试", "考试选择", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        Integer lessonId = lessonTests.get(optionDialog).getLessonId();
-        return lessonId;
+        //对数组进行调整
+        int i=0;
+        for (String str:options){
+            if (str!=null){
+                i++;
+            }
+        }
+        int j=0;
+        String[] option=new String[i];
+        for (String str:options){
+            if (str!=null){
+                option[j]=str;
+                j++;
+            }
+        }
+        if (option[0]==null){
+            JOptionPane.showMessageDialog(jf,"你暂未发布考试");
+        }else {
+            int optionDialog = JOptionPane.showOptionDialog(jf, "请选择考试", "考试选择", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+            Integer lessonId = lessonTests.get(optionDialog).getLessonId();
+            return lessonId;
+        }
+        return null;
     }
 }

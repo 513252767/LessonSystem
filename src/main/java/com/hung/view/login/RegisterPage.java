@@ -5,6 +5,7 @@ import com.hung.service.AccountService;
 import com.hung.service.impl.AccountServiceImpl;
 import com.hung.util.SqlFilter;
 import com.hung.util.aop.ServiceFactory;
+import com.hung.util.spring.annotation.Controller;
 import com.hung.util.validateCode.ValidateCode;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Hung
  */
+@Controller
 public class RegisterPage {
 
     JFrame jf = new JFrame("注册界面");
@@ -126,7 +128,7 @@ public class RegisterPage {
             } else {
                 Account registerAccount = new Account(name, password);
                 AccountService accountService = new ServiceFactory<>(new AccountServiceImpl()).getService();
-                if (accountService.registerAccount(registerAccount) > 0) {
+                if (accountService.registerAccount(registerAccount)) {
                     //注册成功
                     JOptionPane.showMessageDialog(jf, "注册成功,返回登录页面");
                     new LoginPage().init();

@@ -8,7 +8,6 @@ import com.hung.util.orm.annotations.Update;
 import com.hung.util.orm.config.Mapper;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class ConfigBuilder {
      */
     public static Map<String, Mapper> loadMapperAnnotation(String daoClassPath) throws Exception {
         //定义返回值对象
-        Map<String, Mapper> mappers = new HashMap<String, Mapper>();
+        Map<String, Mapper> mappers = new HashMap<>();
         //1.得到dao接口的字节码对象
         Class daoClass = Class.forName(daoClassPath);
         //2.得到dao接口中的方法数组
@@ -60,22 +59,12 @@ public class ConfigBuilder {
                 mapper.setQueryString(queryString);
                 //获取当前方法的返回值，还要求必须带有泛型信息
                 Type type = method.getGenericReturnType();
-                //判断type是不是参数化的类型
-                if (type instanceof ParameterizedType) {
-                    //强转
-                    ParameterizedType ptype = (ParameterizedType) type;
-                    //得到参数化类型中的实际类型参数
-                    Type[] types = ptype.getActualTypeArguments();
-                    //取出第一个
-                    Class domainClass = (Class) types[0];
-                    //获取domainClass的类名
-                    String resultType = domainClass.getName();
-                    //给Mapper赋值
-                    mapper.setResultType(resultType);
-                } else {
-                    //不是参数化类型，直接设置
-                    mapper.setResultType(type.getTypeName());
-                }
+                mapper.setResultType(type);
+
+                //设置参数类型
+                Type[] genericParameterTypes = method.getGenericParameterTypes();
+                mapper.setGenericParameterTypes(genericParameterTypes);
+
                 //组装key的信息
                 //获取方法的名称
                 String methodName = method.getName();
@@ -84,6 +73,7 @@ public class ConfigBuilder {
                 //给map赋值
                 mappers.put(key, mapper);
             }
+
         }
         return mappers;
     }

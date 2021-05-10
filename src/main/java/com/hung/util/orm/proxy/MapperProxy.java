@@ -10,7 +10,6 @@ import com.hung.util.orm.utils.Executor;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.util.Map;
 
@@ -33,7 +32,6 @@ public class MapperProxy implements InvocationHandler {
      * @param method
      * @param objects
      * @return
-     * @throws Throwable
      */
     @Override
     public Object invoke(Object o, Method method, Object[] objects) {
@@ -49,19 +47,14 @@ public class MapperProxy implements InvocationHandler {
         if (mapper == null) {
             throw new IllegalArgumentException("传入的参数有误");
         }
-        //调用工具类执行相应方法
-        Type[] genericParameterTypes = method.getGenericParameterTypes();
 
         //根据不同注解实现不同功能
-        Executor executor = new Executor();
-        String condition="All";
-        if (method.getName().contains(condition)) {
-            return executor.selectAll(mapper, connection, objects, genericParameterTypes);
-        } else if (method.isAnnotationPresent(Select.class)) {
-            return executor.select(mapper, connection, objects, genericParameterTypes);
-        } else if (method.isAnnotationPresent(Update.class) || method.isAnnotationPresent(Delete.class)
+        Executor executor = Executor.getInstance();
+        if (method.isAnnotationPresent(Select.class)) {
+            return executor.select(mapper, connection, objects);
+        }else if (method.isAnnotationPresent(Update.class) || method.isAnnotationPresent(Delete.class)
                 || method.isAnnotationPresent(Insert.class)) {
-            return executor.update(mapper, connection, objects, genericParameterTypes);
+            return executor.update(mapper, connection, objects);
         }
         return null;
     }
