@@ -65,5 +65,7 @@ public interface LessonDao {
      */
     @Select("SELECT id,week,turn,name,teacher,number,classroom,`category` FROM lesson WHERE id not in (SELECT lessonId FROM `grade` WHERE userId=?) AND `category` = 2;")
     List<Lesson> queryAllOptionalCourse(Integer userId);
+    @Select("select id,week,turn,name,teacher,number,classroom,`category` from lesson;")
+    List<Lesson> queryAllLessons();
 }
 

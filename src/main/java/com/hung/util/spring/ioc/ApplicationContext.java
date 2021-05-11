@@ -51,9 +51,6 @@ public class ApplicationContext {
             if ("singleton".equals(beanDefinition.getScope())) {
                 Object bean = createBean(beanName, beanDefinition);
                 singletonBeanMap.put(beanName, bean);
-//                if (!singletonBeanMap.containsKey(beanName)){
-//
-//                }
             }
         }
     }

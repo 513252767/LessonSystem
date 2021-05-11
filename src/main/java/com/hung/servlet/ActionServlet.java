@@ -1,6 +1,9 @@
 package com.hung.servlet;
 
 import com.hung.entity.Exam;
+import com.hung.entity.LeavingMessage;
+import com.hung.entity.StudentGrade;
+import com.hung.entity.TeacherGrade;
 import com.hung.pojo.*;
 import com.hung.service.*;
 import com.hung.util.LessonToList;
@@ -39,6 +42,8 @@ public class ActionServlet extends BaseServlet {
     private GradeService gradeService;
     @Autowired
     private LessonTestService lessonTestService;
+    @Autowired
+    private ExamApplyService examApplyService;
 
     /**
      * 登录
@@ -431,8 +436,96 @@ public class ActionServlet extends BaseServlet {
         request.getRequestDispatcher(request.getContextPath() + "/teacher/GradeConfirm.html").forward(request, response);
     }
 
-    public void queryExamApply(HttpServletRequest request, HttpServletResponse response)throws IOException{
+    /**
+     * 查询所有考试申请
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void queryExamApply(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<ExamApply> examApplies = examApplyService.queryExamApplies();
+        JSONArray.writeJSONString(examApplies, response.getWriter());
+    }
 
+    /**
+     * 添加考试
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void addExam(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String classroom = request.getParameter("classroom");
+        String lessonId = request.getParameter("lessonId");
+        String number = request.getParameter("number");
+        lessonTestService.addLessonTest(new LessonTest(Integer.parseInt(lessonId), number, classroom));
+    }
+
+    /**
+     * 查找所有课程
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void queryAllLessons(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Lesson> lessonList = lessonService.queryAllLessons();
+        JSONArray.writeJSONString(lessonList, response.getWriter());
+    }
+
+    /**
+     * 查询某一个课程老师的评分信息
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void queryTeacherGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String lessonId = request.getParameter("lessonId");
+        List<TeacherGrade> teacherGrades = gradeService.queryTeacherGradeByLessonId(Integer.valueOf(lessonId));
+        JSONArray.writeJSONString(teacherGrades, response.getWriter());
+    }
+
+    /**
+     * 根据学生id查询其所有已知成绩
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void queryStudentGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<StudentGrade> studentGrades = gradeService.queryStudentGradeByUserId(user.getId());
+        JSONArray.writeJSONString(studentGrades, response.getWriter());
+    }
+
+    /**
+     * 学生留言
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void studentLeaveMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String message = request.getParameter("message");
+        String lessonId = request.getParameter("lessonId");
+        boolean b = gradeService.leaveMessage(message, Integer.valueOf(lessonId), user.getId());
+        JSONValue.writeJSONString(b, response.getWriter());
+    }
+
+    /**
+     * 查看留言
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void queryLeavingMessages(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String lessonId = request.getParameter("lessonId");
+        List<LeavingMessage> leavingMessages = gradeService.queryLeavingMessage(Integer.valueOf(lessonId));
+        JSONArray.writeJSONString(leavingMessages,response.getWriter());
     }
 
     public ActionServlet() {

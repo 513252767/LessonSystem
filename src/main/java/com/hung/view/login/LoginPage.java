@@ -2,13 +2,11 @@ package com.hung.view.login;
 
 import com.hung.pojo.Account;
 import com.hung.service.AccountService;
-import com.hung.service.impl.AccountServiceImpl;
 import com.hung.util.PasswordWriter;
 import com.hung.util.SqlFilter;
-import com.hung.util.aop.ServiceFactory;
+import com.hung.util.spring.annotation.Autowired;
 import com.hung.util.spring.annotation.Controller;
 import com.hung.util.spring.ioc.ApplicationContext;
-import com.hung.util.spring.ioc.ApplicationContextFactory;
 import com.hung.util.validateCode.ValidateCode;
 import com.hung.view.home.MainPage;
 
@@ -23,7 +21,8 @@ import java.awt.image.BufferedImage;
  */
 @Controller("loginPage")
 public class LoginPage {
-    AccountService accountService = new ServiceFactory<>(new AccountServiceImpl()).getService();
+    @Autowired
+    AccountService accountService;
     /**
      * 生成必要组件
      */
@@ -183,7 +182,8 @@ public class LoginPage {
     }
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = ApplicationContextFactory.getApplication();
+        //ApplicationContext applicationContext = ApplicationContextFactory.getApplication();
+        ApplicationContext applicationContext = new ApplicationContext();
         LoginPage loginPage = (LoginPage) applicationContext.getBean("loginPage");
         loginPage.init();
     }

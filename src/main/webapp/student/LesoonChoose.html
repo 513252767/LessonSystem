@@ -13,29 +13,59 @@
 
     <script src="../js/jquery-3.5.1.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.js" type="text/javascript"></script>
-    <script src="../js/login-register.js" type="text/javascript"></script>
 
     <script>
+        function show(element) {
+            var eid = element.attr('id');
+            //回显
+            $.ajax("/BaseServlet?method=queryLeavingMessages", {lessonId: eid}, function (leavingMessages) {
+                for (let leavingMessage in leavingMessages) {
+                    if (leavingMessage.message!=="" && leavingMessage.message!=null){
+                        $('messageTable').append(" <tr height={40px} align=center>\n" +
+                            "                    <td><font color=gray>"+leavingMessage.name+"</font></td>\n" +
+                            "                    <td><font color=gray>"+leavingMessage.message+"</font></td>\n" +
+                            "                </tr>");
+                    }
+                }
+            })
+
+            var light = document.getElementById('light');
+            var fade = document.getElementById('fade');
+            light.style.display = 'block';
+            fade.style.display = 'block';
+            var a = document.getElementsByClassName().innerHTML = sd;
+            console.log();
+        }
+
+        function hide(tag) {
+            var light = document.getElementById(tag);
+            var fade = document.getElementById('fade');
+            light.style.display = 'none';
+            fade.style.display = 'none';
+        }
 
         $(function () {
             $.ajax("/BaseServlet?method=queryOptionalCourse", function (courses) {
                 if (courses.length !== 0) {
                     var i = 1;
                     for (let coursesKey in courses) {
-                        $('courseTable').append(" <tr height={40px} align=center id={lesson+i}>" +
+                        $('courseTable').append(" <tr height={40px} align=center>" +
                             "        <td>" + coursesKey.id + "</td>\n" +
                             "        <td>" + coursesKey.week + "</td>\n" +
                             "        <td>" + coursesKey.turn + "</td>\n" +
                             "        <td>" + coursesKey.name + "</td>\n" +
                             "        <td>" + coursesKey.teacher + "</td>\n" +
                             "        <td>" + coursesKey.classroom + "</td>\n" +
-                            "        <td><button id={coursesKey.id} onclick={addCourse(this)} >选课</button></td>" +
+                            "        <td><button id=\'" + coursesKey.id + "\' onclick={addCourse(this)} >选课</button></td>" +
+                            "<td><a href={javascript:void(0)}  onclick={show(this)} id='"+courses.id+"'>查看评价</a></td>" +
                             "    </tr>");
                         i++;
                     }
                 }
             })
         })
+
+
 
         function addCourse(btn) {
             var b = confirm("你确认选择吗?");
@@ -58,8 +88,26 @@
         <th><font color=gray>课程名称</font></th>
         <th><font color=gray>教师</font></th>
         <th><font color=gray>教室</font></th>
-        <th><font color=gray>   </font></th>
+        <th><font color=gray> </font></th>
+        <th><font color=gray> </font></th>
     </tr>
 </table>
+<!--弹出窗口-->
+<div align="center">
+    <div id="light" class="white_content">
+        <div class="close"><a href="javascript:void(0)" onclick="hide('light')"> 关闭</a></div>
+        <div class="con" align="center">
+            <table id="messageTable" border=6 frame=void align=center width=650px height=100px cellspacing=0px
+                   cellpadding=10px>
+                <tr height=50px align=center>
+                    <th><font color=gray>姓名</font></th>
+                    <th><font color=gray>留言</font></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="fade" class="black_overlay"></div>
+</div>
 </body>
 </html>

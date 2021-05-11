@@ -1,5 +1,9 @@
 package com.hung.service;
 
+import com.hung.entity.LeavingMessage;
+import com.hung.entity.StudentGrade;
+import com.hung.entity.TeacherGrade;
+
 import java.util.List;
 
 /**
@@ -46,4 +50,34 @@ public interface GradeService {
      * @return
      */
     Boolean chooseLesson(Integer lessonId,Integer userId);
+
+    /**
+     * 根据课程Id查询老师评分
+     * @param lessonId
+     * @return
+     */
+    List<TeacherGrade> queryTeacherGradeByLessonId(Integer lessonId);
+
+    /**
+     * 根据学生id查询其已有成绩
+     * @param userId
+     * @return
+     */
+    List<StudentGrade> queryStudentGradeByUserId(Integer userId);
+
+    /**
+     * 留言
+     * @param comment
+     * @param lessonId
+     * @param userId
+     * @return
+     */
+    boolean leaveMessage(String comment,Integer lessonId,Integer userId);
+
+    /**
+     * 根据课程id获取留言
+     * @param lessonId
+     * @return
+     */
+    List<LeavingMessage> queryLeavingMessage(Integer lessonId);
 }

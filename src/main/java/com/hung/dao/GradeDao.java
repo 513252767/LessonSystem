@@ -1,5 +1,6 @@
 package com.hung.dao;
 
+import com.hung.pojo.Grade;
 import com.hung.util.orm.annotations.Insert;
 import com.hung.util.orm.annotations.Select;
 import com.hung.util.orm.annotations.Update;
@@ -56,7 +57,40 @@ public interface GradeDao {
      * @param userId
      * @return
      */
-    @Insert("insert into grade (id,lessonId,userId,grade,`condition`) values (default,?,?,\'0\',\'1\');")
+    @Insert("insert into grade (id,lessonId,userId,grade,`condition`,teacherGrade) values (default,?,?,\'0\',\'1\',0);")
     Integer chooseLesson(Integer lessonId,Integer userId);
 
+    /**
+     * 根据课程id查找所有对老师的评分
+     * @param lessonId
+     * @return
+     */
+    @Select("select userId,teacherGrade from grade where lessonId=?;")
+    List<Grade> queryTeacherGradeByLessonId(Integer lessonId);
+
+    /**
+     * 根据学生id查询该学生所有已有成绩
+     * @param userid
+     * @return
+     */
+    @Select("select lessonId,grade from grade where grade!='0';")
+    List<Grade> queryStudentGradeByUserId(Integer userid);
+
+    /**
+     * 留言
+     * @param comment
+     * @param lessonId
+     * @param userId
+     * @return
+     */
+    @Update("update grade set comment=? where lessonId=? and userId=?;")
+    Integer leaveMessage(String comment,Integer lessonId,Integer userId);
+
+    /**
+     * 根据课程id获取留言
+     * @param lessonId
+     * @return
+     */
+    @Select("select userId,comment where lessonId=? and condition='2';")
+    List<Grade> queryLeavingMessage(Integer lessonId);
 }

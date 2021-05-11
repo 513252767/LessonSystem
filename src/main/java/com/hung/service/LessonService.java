@@ -54,4 +54,10 @@ public interface LessonService {
      */
     List<Lesson> queryAllOptionalCourse(Integer userId);
 
+    /**
+     * 查看已完成的
+     * @return
+     */
+    List<Lesson> queryAllLessons();
+
 }

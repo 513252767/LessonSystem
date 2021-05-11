@@ -85,4 +85,14 @@ public class LessonServiceImpl implements LessonService {
         //查询所有未选选修课程
         return lessonDao.queryAllOptionalCourse(userId);
     }
+
+    /**
+     * 查看已完成的
+     *
+     * @return
+     */
+    @Override
+    public List<Lesson> queryAllLessons() {
+        return lessonDao.queryAllLessons();
+    }
 }

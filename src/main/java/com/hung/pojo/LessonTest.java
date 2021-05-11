@@ -10,6 +10,7 @@ import java.util.Objects;
 public class LessonTest {
     Integer id;
     Integer lessonId;
+    String number;
     String testTime;
 
     public LessonTest() {
@@ -18,6 +19,20 @@ public class LessonTest {
     public LessonTest(Integer lessonId, String testTime) {
         this.lessonId = lessonId;
         this.testTime = testTime;
+    }
+
+    public LessonTest(Integer lessonId, String number, String testTime) {
+        this.lessonId = lessonId;
+        this.number = number;
+        this.testTime = testTime;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public Integer getId() {

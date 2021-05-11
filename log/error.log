@@ -42,3 +42,7 @@
 2021-05-09T11:56:46.983975100  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
 2021-05-09T11:57:16.641453  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
 2021-05-09T23:02:29.523081500  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-11T19:58:08.587143100  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-11T19:59:15.435624500  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-11T20:04:06.597893400  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
+2021-05-11T20:04:57.727550600  Thread[AWT-EventQueue-0,6,main] null  java.lang.NullPointerException
