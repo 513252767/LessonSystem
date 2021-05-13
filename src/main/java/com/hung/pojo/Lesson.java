@@ -97,15 +97,15 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return "Lesson{" +
-                "id=" + id +
-                ", week='" + week + '\'' +
-                ", turn='" + turn + '\'' +
-                ", name='" + name + '\'' +
-                ", teacher='" + teacher + '\'' +
-                ", number='" + number + '\'' +
-                ", classroom='" + classroom + '\'' +
-                ", category='" + category + '\'' +
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"week\":\"" + week + '\"' +
+                ", \"turn\":\"" + turn + '\"' +
+                ", \"name\":\"" + name + '\"' +
+                ", \"teacher\":\"" + teacher + '\"' +
+                ", \"number\":\"" + number + '\"' +
+                ", \"classroom\":\"" + classroom + '\"' +
+                ", \"category\":\"" + category + '\"' +
                 '}';
     }
 

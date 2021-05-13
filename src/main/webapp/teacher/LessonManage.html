@@ -89,6 +89,7 @@
                 $('lessonTurn').val(lesson.turn);
                 $('lessonClassroom').val(lesson.classroom);
                 $('lessonWeek').val(lesson.week);
+                $('examLessonId').val(lesson.id);
             })
 
             var light = document.getElementById('light');
@@ -253,7 +254,9 @@
             </div>
 
             <div>
-                <form method="get" style="padding-left: 260px;padding-right: 250px">
+                <form method="get" style="padding-left: 260px;padding-right: 250px" action="BaseServlet?method=addExamApply">
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-default" id="examLessonId" disabled>
                     <label>设置考试时间</label>
                     <input type="text" class="form-control" aria-label="Sizing example input"
                            aria-describedby="inputGroup-sizing-default" PLACEHOLDER="XX月XX日 XX时XX分" id="examTime">

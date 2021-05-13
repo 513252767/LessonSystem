@@ -25,4 +25,17 @@ public class ExamApplyServiceImpl implements ExamApplyService {
     public List<ExamApply> queryExamApplies() {
         return examApplyDao.queryExamApplies();
     }
+
+    /**
+     * 添加考试申请
+     *
+     * @param lessonId
+     * @param number
+     * @param examTime
+     * @return
+     */
+    @Override
+    public boolean addExamApply(Integer lessonId, String number, String examTime) {
+        return examApplyDao.addExamApply(lessonId,number,examTime)>0;
+    }
 }

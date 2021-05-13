@@ -45,11 +45,11 @@ public class ExamApply {
 
     @Override
     public String toString() {
-        return "ExamApply{" +
-                "id=" + id +
-                ", lessonId=" + lessonId +
-                ", number='" + number + '\'' +
-                ", examTime='" + examTime + '\'' +
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"lessonId\":\"" + lessonId +
+                "\", \"number\":\"" + number + '\"' +
+                ", \"examTime\":\"" + examTime + '\"' +
                 '}';
     }
 

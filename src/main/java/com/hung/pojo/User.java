@@ -105,15 +105,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", team='" + team + '\'' +
-                ", major='" + major + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", accountId=" + accountId +
-                '}';
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"name\":\"" + name + '\"' +
+                ", \"gender\":\"" + gender + '\"' +
+                ", \"team\":\"" + team + '\"' +
+                ", \"major\":\"" + major + '\"' +
+                ", \"introduction\":\"" + introduction + '\"' +
+                ", \"accountId\":\"" + accountId +
+                "\"}";
     }
 
     @Override

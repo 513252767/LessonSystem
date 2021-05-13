@@ -48,11 +48,9 @@ public class Executor {
                 Type[] types = ptype.getActualTypeArguments();
                 //取出第一个
                 domainClass = (Class<?>) types[0];
-                while (rs.next()) {
-                    E rs1 = resultSetCollection(rs, domainClass, ptype);
-                    if (rs1 != null) {
-                        return rs1;
-                    }
+                E rs1 = resultSetCollection(rs, domainClass, ptype);
+                if (rs1 != null) {
+                    return rs1;
                 }
             } else {
                 //不是参数化类型
@@ -96,32 +94,36 @@ public class Executor {
 
     private <E, T> E setPack(ResultSet rs, Class<?> domainClass) throws SQLException, InstantiationException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Set<T> set = new HashSet<>();
-        if (domainClass == Integer.class) {
-            Integer anInt = rs.getInt(1);
-            set.add((T) anInt);
-        } else if (isContain(domainClass)) {
-            T obj = (T)rs.getString(1);
-            set.add(obj);
-        } else {
-            T obj = (T) getObj(rs, domainClass);
-            //把赋好值的对象加入到集合中
-            set.add(obj);
+        while (rs.next()){
+            if (domainClass == Integer.class) {
+                Integer anInt = rs.getInt(1);
+                set.add((T) anInt);
+            } else if (isContain(domainClass)) {
+                T obj = (T)rs.getString(1);
+                set.add(obj);
+            } else {
+                T obj = (T) getObj(rs, domainClass);
+                //把赋好值的对象加入到集合中
+                set.add(obj);
+            }
         }
         return (E) set;
     }
 
     private <E, T> E listPack(ResultSet rs, Class<?> domainClass) throws SQLException, InstantiationException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         List<T> list = new ArrayList<>();
-        if (domainClass == Integer.class) {
-            Integer anInt = rs.getInt(1);
-            list.add((T) anInt);
-        } else if (isContain(domainClass)) {
-            T obj = (T)rs.getString(1);
-            list.add(obj);
-        } else {
-            T obj = (T) getObj(rs, domainClass);
-            //把赋好值的对象加入到集合中
-            list.add(obj);
+        while (rs.next()){
+            if (domainClass == Integer.class) {
+                Integer anInt = rs.getInt(1);
+                list.add((T) anInt);
+            } else if (isContain(domainClass)) {
+                T obj = (T)rs.getString(1);
+                list.add(obj);
+            } else {
+                T obj = (T) getObj(rs, domainClass);
+                //把赋好值的对象加入到集合中
+                list.add(obj);
+            }
         }
         return (E) list;
     }

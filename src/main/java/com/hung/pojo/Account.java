@@ -68,12 +68,12 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", roleId=" + roleId +
-                '}';
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"name\":\"" + name + '\"' +
+                ", \"password\":\"" + password + '\"' +
+                ", \"roleId\":\"" + roleId +
+                "\"}";
     }
 
     @Override

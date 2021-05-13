@@ -1,5 +1,6 @@
 package com.hung.service;
 
+import com.hung.entity.PageBean;
 import com.hung.pojo.Lesson;
 
 import java.util.List;
@@ -59,5 +60,15 @@ public interface LessonService {
      * @return
      */
     List<Lesson> queryAllLessons();
+
+    /**
+     * 按照页数条件查找数据
+     *
+     * @param _currentPage
+     * @param _rows
+     * @param condition
+     * @return
+     */
+    PageBean<Lesson> findDataByPage(String _currentPage, String _rows, String condition);
 
 }

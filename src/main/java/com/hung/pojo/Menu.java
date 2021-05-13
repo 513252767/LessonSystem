@@ -9,12 +9,12 @@ public class Menu {
     private Integer id;
     private String name;
     private String url;
-    private String parentId;
+    private Integer parentId;
 
     public Menu() {
     }
 
-    public Menu(String name, String url, String parentId) {
+    public Menu(String name, String url, Integer parentId) {
         this.name = name;
         this.url = url;
         this.parentId = parentId;
@@ -44,11 +44,11 @@ public class Menu {
         this.url = url;
     }
 
-    public String getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -71,11 +71,11 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", parentId='" + parentId + '\'' +
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"name\":\"" + name + '\"' +
+                ", \"url\":\"" + url + '\"' +
+                ", \"parentId\":\"" + parentId + '\"' +
                 '}';
     }
 }

@@ -37,4 +37,13 @@ public class Exam {
     public void setTestTime(String testTime) {
         this.testTime = testTime;
     }
+
+    @Override
+    public String toString() {
+        return "{\"" +
+                "lessonId\":\"" + lessonId +
+                "\", \"lessonName\":\"" + lessonName + '\"' +
+                ", \"testTime:\"" + testTime + '\"' +
+                '}';
+    }
 }

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>主页面</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
     <style>body {
         padding-top: 60px;
@@ -23,11 +22,11 @@
 
         //提交检查
         function submitCheck() {
-            var password = $('password').value();
-            var nickname = $('nickName').value();
-            var major = $('major').value();
-            var classes = $('team').value();
-            var introduction = $('introduction').value();
+            var password = $('#password').value();
+            var nickname = $('#nickName').value();
+            var major = $('#major').value();
+            var classes = $('#team').value();
+            var introduction = $('#introduction').value();
             if (password.empty || nickname.empty() || major.empty || classes.empty || introduction.empty){
                 alert("请不要出现空行哦");
                 return false;
@@ -42,19 +41,19 @@
          */
         function returnData() {
             $.post("/BaseServlet?method=findUser",function (user) {
-                $('nickName').val(user.nickName);
-                $('major').val(user.major);
+                $('#nickName').val(user.name);
+                $('#major').val(user.major);
                 if (user.gender===1) {
-                    $('boy').attr("checked", true);
+                    $('#boy').attr("checked", true);
                 }else {
-                    $('girl').attr("checked", true);
+                    $('#girl').attr("checked", true);
                 }
-                $('team').val(user.team);
-                $('introduction').val(user.introduction);
+                $('#team').val(user.team);
+                $('#introduction').val(user.introduction);
             })
             $.post("/BaseServlet?method=findAccount",function (account) {
-                $('name').val(account.name)
-                $('password').val(account.password);
+                $('#name').val(account.name)
+                $('#password').val(account.password);
             })
         }
 
@@ -66,23 +65,24 @@
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" >姓名</span>
+                <input type="text" id="name" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-default" disabled value="1">
             </div>
-            <input type="text" id="name" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default" disabled>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">密码</span>
+                <input type="text" id="password" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-default">
             </div>
-            <input type="text" id="password" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">昵称</span>
+                <input type="text" id="nickName" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-default">
             </div>
-            <input type="text" id="nickName" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default">
+
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -100,23 +100,23 @@
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">专业</span>
+                <input type="text" id="major" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-default">
             </div>
-            <input type="text" id="major" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">班级</span>
+                <input type="text" id="team" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-default">
             </div>
-            <input type="text" id="team" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">自我介绍</span>
+                <input type="text" id="introduction" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-default">
             </div>
-            <input type="text" id="introduction" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-default">
         </div>
         <button type="submit" onclick="submitCheck()">提交修改</button>
         <button type="button" onclick="returnData()">撤销</button>

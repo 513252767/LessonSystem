@@ -113,14 +113,14 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" +
-                "id=" + id +
-                ", lessonId=" + lessonId +
-                ", userId=" + userId +
-                ", grade='" + grade + '\'' +
-                ", comment='" + comment + '\'' +
-                ", teacherGrade='" + teacherGrade + '\'' +
-                ", condition='" + condition + '\'' +
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"lessonId\":\"" + lessonId +
+                "\", \"userId\":\"" + userId +
+                "\", \"grade\":\"" + grade + '\"' +
+                ", \"comment\":\"" + comment + '\"' +
+                ", \"teacherGrade\":\"" + teacherGrade + '\"' +
+                ", \"condition\":\"" + condition + '\"' +
                 '}';
     }
 }

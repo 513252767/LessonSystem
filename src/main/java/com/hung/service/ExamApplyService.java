@@ -13,4 +13,13 @@ public interface ExamApplyService {
      * @return
      */
     List<ExamApply> queryExamApplies();
+
+    /**
+     * 添加考试申请
+     * @param lessonId
+     * @param number
+     * @param examTime
+     * @return
+     */
+    boolean addExamApply(Integer lessonId,String number,String examTime);
 }

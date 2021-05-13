@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <title>课程表</title>
@@ -15,6 +15,39 @@
     <script src="../js/bootstrap.js" type="text/javascript"></script>
 
     <script>
+        function show(element) {
+            var condition = $('queryByCondition').value();
+            //回显
+            $.ajax("/BaseServlet?method=findDataOnPage", {condition:condition}, function (lessons) {
+                for (let lesson in lessons) {
+                    $('messageTable').append(" <tr height={40px} align=center>\n" +
+                        "                    <td><font color=gray>" + lesson.id + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.name + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.week + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.turn + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.number + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.classroom + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.teacher + "</font></td>\n" +
+                        "                    <td><font color=gray>" + lesson.category + "</font></td>\n" +
+                        "                </tr>");
+                }
+            })
+
+            var light = document.getElementById('light');
+            var fade = document.getElementById('fade');
+            light.style.display = 'block';
+            fade.style.display = 'block';
+            var a = document.getElementsByClassName().innerHTML = sd;
+            console.log();
+        }
+
+        function hide(tag) {
+            var light = document.getElementById(tag);
+            var fade = document.getElementById('fade');
+            light.style.display = 'none';
+            fade.style.display = 'none';
+        }
+
         <!--        展开课程-->
         $(function () {
             $.ajax("/BaseServlet?method=lessonQuery", function (data) {
@@ -22,7 +55,7 @@
                 var i = 0;
                 for (let dataKey in data) {
                     lessonTable.append("<tr height = 40px align = center id=\"lessonOne\">\n" +
-                        "                    <td ><font color = blue><b>i</b></font></td><td>"+dataKey[0]+"</td><td>"+dataKey[1]+"</td><td>"+dataKey[2]+"</td><td>"+dataKey[3]+"</td><td>"+dataKey[4]+"</td></tr>")
+                        "                    <td ><font color = blue><b>i</b></font></td><td>" + dataKey[0] + "</td><td>" + dataKey[1] + "</td><td>" + dataKey[2] + "</td><td>" + dataKey[3] + "</td><td>" + dataKey[4] + "</td></tr>")
                     i++;
                 }
             })
@@ -30,14 +63,13 @@
     </script>
 </head>
 <body>
+
 <div align="center" style="padding-left: 200px;padding-right: 200px">
     <div>
-        <form>
-            <div class="form-group">
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       placeholder="搜一搜">
-                <button type="submit" class="btn btn-primary">查询</button>
-            </div>
+        <form action="/BaseServlet?method=findDataOnPage" method="post" accept-charset="UTF-8">
+            <input type="text" aria-label="First name" id="queryByCondition" placeholder="Name" >
+            <button type="submit" class="btn btn-outline-primary" name="btnCityAndName">Query By City AND Name</button>
+            <a href=javascript:void(0) onclick={show(this)}>查看评价</a>
         </form>
         <div>
             <table id="lessonTable" border=6 frame=void align=center width=650px height=100px cellspacing=0px
@@ -54,5 +86,35 @@
         </div>
     </div>
 </div>
+
+<!--弹出窗口-->
+<div align="center">
+    <div id="light" class="white_content">
+        <div class="close"><a href="javascript:void(0)" onclick="hide('light')"> 关闭</a></div>
+        <div class="con" align="center">
+            <table id="queryTable" border=6 frame=void align=center width=650px height=100px cellspacing=0px
+                   cellpadding=10px>
+                <tr height=50px align=center>
+                    <th><font color=gray>课程id</font></th>
+                    <th><font color=gray>课程名称</font></th>
+                    <th><font color=gray>星期</font></th>
+                    <th><font color=gray>节数</font></th>
+                    <th><font color=gray>最大人数</font></th>
+                    <th><font color=gray>教室</font></th>
+                    <th><font color=gray>种类</font></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation example" style="padding-left: 80px">
+        <ul class="pagination" id="pageBtn">
+            <!--             页数按钮-->
+        </ul>
+    </nav>
+
+    <div id="fade" class="black_overlay"></div>
+</div>
+
 </body>
 </html>

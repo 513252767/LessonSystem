@@ -61,10 +61,10 @@ public class LessonTest {
 
     @Override
     public String toString() {
-        return "LessonTest{" +
-                "id=" + id +
-                ", lessonId=" + lessonId +
-                ", testTime='" + testTime + '\'' +
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"lessonId\":\"" + lessonId +
+                "\", \"testTime\":\"" + testTime + '\"' +
                 '}';
     }
 

@@ -43,10 +43,10 @@ public class TeacherGrade {
 
     @Override
     public String toString() {
-        return "TeacherGrade{" +
-                "studentId=" + studentId +
-                ", studentName='" + studentName + '\'' +
-                ", teacherGrade='" + teacherGrade + '\'' +
+        return "{" +
+                "\"studentId\":\"" + studentId +
+                "\", \"studentName\":\"" + studentName + '\"' +
+                ", \"teacherGrade\":\"" + teacherGrade + '\"' +
                 '}';
     }
 }

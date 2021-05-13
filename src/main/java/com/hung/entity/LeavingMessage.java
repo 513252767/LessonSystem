@@ -30,4 +30,12 @@ public class LeavingMessage {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"name\":\"" + name + '\"' +
+                ", \"message\":\"" + message + '\"' +
+                '}';
+    }
 }

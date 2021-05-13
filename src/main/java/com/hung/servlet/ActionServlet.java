@@ -1,9 +1,6 @@
 package com.hung.servlet;
 
-import com.hung.entity.Exam;
-import com.hung.entity.LeavingMessage;
-import com.hung.entity.StudentGrade;
-import com.hung.entity.TeacherGrade;
+import com.hung.entity.*;
 import com.hung.pojo.*;
 import com.hung.service.*;
 import com.hung.util.LessonToList;
@@ -97,7 +94,7 @@ public class ActionServlet extends BaseServlet {
             session.setAttribute("account", trueAccount);
             session.setAttribute("user", user);
             //转发页面
-            response.sendRedirect(request.getContextPath() + "/LoginPage.html");
+            response.sendRedirect(request.getContextPath() + "/MainPage.html");
         }
     }
 
@@ -160,12 +157,12 @@ public class ActionServlet extends BaseServlet {
      * 登录验证码
      */
     public void checkCodeLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
         ValidateCode vCode = new ValidateCode(160, 40, 5, 150);
         //显示图片
         ImageIO.write(vCode.getBuffImg(), "png", response.getOutputStream());
 
         //将验证码放在session中，如果放在Request中会因为跳转页面也接收不到
-        HttpSession session = request.getSession();
         session.setAttribute("checkCodeLogin", vCode.getCode());
     }
 
@@ -177,12 +174,12 @@ public class ActionServlet extends BaseServlet {
      * @throws IOException
      */
     public void checkCodeRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
         ValidateCode vCode = new ValidateCode(160, 40, 5, 150);
         //显示图片
         ImageIO.write(vCode.getBuffImg(), "png", response.getOutputStream());
 
         //将验证码放在session中，如果放在Request中会因为跳转页面也接收不到
-        HttpSession session = request.getSession();
         session.setAttribute("checkCodeRegister", vCode.getCode());
     }
 
@@ -197,7 +194,6 @@ public class ActionServlet extends BaseServlet {
         String parentId = request.getParameter("parentId");
         Account account = (Account) session.getAttribute("account");
         List<Menu> menus = accountService.menuInfo(Integer.valueOf(parentId), account.getRoleId());
-        response.setContentType("application/json;charset=UTF-8");
         JSONArray.writeJSONString(menus, response.getWriter());
     }
 
@@ -240,8 +236,6 @@ public class ActionServlet extends BaseServlet {
     public void findAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        String password = AesUtil.decryptStr(account.getPassword(), account.getName());
-        account.setPassword(password);
         JSONValue.writeJSONString(account, response.getWriter());
     }
 
@@ -436,6 +430,14 @@ public class ActionServlet extends BaseServlet {
         request.getRequestDispatcher(request.getContextPath() + "/teacher/GradeConfirm.html").forward(request, response);
     }
 
+    public void addExamApply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String examLessonId = request.getParameter("examLessonId");
+        String examTime = request.getParameter("examTime");
+        String examNumber = request.getParameter("examNumber");
+        examApplyService.addExamApply(Integer.valueOf(examLessonId),examNumber,examTime);
+        request.getRequestDispatcher("teacher/LessonManage.html").forward(request,response);
+    }
+
     /**
      * 查询所有考试申请
      *
@@ -526,6 +528,37 @@ public class ActionServlet extends BaseServlet {
         String lessonId = request.getParameter("lessonId");
         List<LeavingMessage> leavingMessages = gradeService.queryLeavingMessage(Integer.valueOf(lessonId));
         JSONArray.writeJSONString(leavingMessages,response.getWriter());
+    }
+
+    /**
+     * 根据当前页数和每行数据的条数查询数据
+     * @param request
+     * @param response
+     */
+    public void findDataOnPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //获取参数
+        String currentPage = request.getParameter("currentPage");
+        String rows = request.getParameter("rows");
+        String condition = request.getParameter("condition");
+
+        //健壮性判断
+        if (currentPage == null || "".equals(currentPage)){
+            currentPage="1";
+        }
+        if(rows == null || "".equals(rows)){
+            rows="6";
+        }
+
+
+        //用Service查询
+        PageBean<Lesson> pb = lessonService.findDataByPage(currentPage, rows, condition);
+
+        //转发
+        request.setAttribute("pb",pb);
+        request.setAttribute("condition",condition);
+        request.setAttribute("buildings",pb.getList());
+        request.getRequestDispatcher(request.getContextPath()+"/student/LessonPage1.jsp").forward(request,response);
     }
 
     public ActionServlet() {

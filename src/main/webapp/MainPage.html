@@ -49,42 +49,47 @@
         })
 
         function menu(a) {
-            //获取点击的超链接标签
-            var afirst = $(a);
-            //判断一级菜单是否有菜单信息，有则获取子菜单，没有则资源跳转
-            if (afirst.attr("href") !== '' && afirst.attr("href") != null) {
-                $("#ifData").attr("src", afirst.attr("href"));
-                return;
-            }
-            //获取当前超链接标签后的同级标签
-            var ul = afirst.next();
-            //判断是否存在子菜单信息，存在则删除，不存在则发起ajax请求获取下级菜单
-            if (ul.length > 0) {
-                ul.remove();
-            } else {
-                $.get("/BaseServlet?method=menuQuery", {parentId: afirst.attr("id")}, function (data) {
-                    alert(data);
-                    //判断session是否失效
-                    if ("sessionError" === data) {
-                        window.Location.href = "Login.jsp";
-                    }
-                    //在一级菜单后加入ul标签
-                    afirst.attr("<ul></ul>");
-                    //afirst.after("<ul></ul>")
-                    //在二级标签中显示ul标签
-                    var ul = afirst.next();
-                    for (var i = 0; i < data.length; i++) {
-                        ul.append("<li><a onclick='menu(this)' id='" + data[i].id + "' href='" + data[i].url + "'>" + data[i].name + "</a></li>");
-                    }
-                })
-            }
+            var menu = $(a);
+            $('right').attr("src",menu.attr("href"));
         }
+
+        // function menu(a) {
+        //     //获取点击的超链接标签
+        //     var afirst = $(a);
+        //     //判断一级菜单是否有菜单信息，有则获取子菜单，没有则资源跳转
+        //     if (afirst.attr("href") !== '' && afirst.attr("href") != null) {
+        //         $("#ifData").attr("src", afirst.attr("href"));
+        //         return;
+        //     }
+        //     //获取当前超链接标签后的同级标签
+        //     var ul = afirst.next();
+        //     //判断是否存在子菜单信息，存在则删除，不存在则发起ajax请求获取下级菜单
+        //     if (ul.length > 0) {
+        //         ul.remove();
+        //     } else {
+        //         $.get("/BaseServlet?method=menuQuery", {parentId: afirst.attr("id")}, function (data) {
+        //             alert(data);
+        //             //判断session是否失效
+        //             if ("sessionError" === data) {
+        //                 window.Location.href = "Login.jsp";
+        //             }
+        //             //在一级菜单后加入ul标签
+        //             afirst.attr("<ul></ul>");
+        //             //afirst.after("<ul></ul>")
+        //             //在二级标签中显示ul标签
+        //             var ul = afirst.next();
+        //             for (var i = 0; i < data.length; i++) {
+        //                 ul.append("<li><a onclick='menu(this)' id='" + data[i].id + "' href='" + data[i].url + "'>" + data[i].name + "</a></li>");
+        //             }
+        //         })
+        //     }
+        // }
     </script>
 </head>
 <body>
 <div class="wrap">
     <ul id="left"></ul>
-    <iframe id="right" src="teacher/GradeConfirm.html"></iframe>
+    <iframe id="right" src="PersonPage.html"></iframe>
 </div>
 </body>
 </html>
