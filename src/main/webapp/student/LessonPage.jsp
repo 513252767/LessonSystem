@@ -33,7 +33,7 @@
                 $('#pageBtn').append(" <li class='page-item active'><a class='page-link' href='/BaseServlet?method=findDataOnPage&currentPage=&rows=5&condition='>i</a></li>')");
             }
         })
-
+        $('#window').show();
         var light = document.getElementById('light');
         var fade = document.getElementById('fade');
         light.style.display = 'block';
@@ -69,7 +69,7 @@
     <div>
         <form accept-charset="UTF-8">
             <input type="text" aria-label="First name" id="condition" placeholder="Name">
-            <a class="btn btn-outline-primary" name="btnCityAndName" onclick="show(this)">Query By City AND Name</a>
+            <a class="btn btn-outline-primary" name="btnCityAndName" onclick="show(this)">Query By Name</a>
         </form>
         <div>
             <table id="lessonTable" border=6 frame=void align=center width=750px height=100px cellspacing=0px
@@ -88,7 +88,7 @@
 </div>
 
 <!--弹出窗口-->
-<div align="center">
+<div align="center" style="display: none" id="window">
     <div id="light" class="white_content">
         <div class="close"><a href="javascript:void(0)" onclick="hide('light')"> 关闭</a></div>
         <div class="con" align="center">

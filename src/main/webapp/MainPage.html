@@ -43,14 +43,14 @@
                 //获取菜单信息
                 var menuTree = $('#left');
                 for (var i = 0; i < data.length; i++) {
-                    menuTree.append("<li><a onclick='menu(this)' id='" + data[i].id + "' href=" + data[i].url + ">" + data[i].name + "</a></li>");
+                    menuTree.append("<li><a onclick='menu(this)' target='menuFrame' id='" + data[i].id + "' href=" + data[i].url + ">" + data[i].name + "</a></li>");
                 }
             })
         })
 
         function menu(a) {
             var menu = $(a);
-            $('right').attr("src",menu.attr("href"));
+            $('#right').attr("src",menu.attr("href"));
         }
 
         // function menu(a) {
@@ -89,7 +89,7 @@
 <body>
 <div class="wrap">
     <ul id="left"></ul>
-    <iframe id="right" src="PersonPage.html"></iframe>
+    <iframe id="right" src="PersonPage.html" name="menuFrame"></iframe>
 </div>
 </body>
 </html>
