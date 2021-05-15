@@ -36,6 +36,6 @@ public interface AccountDao {
      * @param account
      * @return
      */
-    @Update("update account set password =#{password} where id=#{id}")
+    @Update("update account set password =#{password} where name=#{name}")
     Integer updateAccount(Account account);
 }

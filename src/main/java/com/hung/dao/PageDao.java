@@ -32,7 +32,7 @@ public class PageDao {
 
             StringBuilder sb=new StringBuilder(sql);
             if (condition!=null && !"".equals(condition)){
-                sb.append(" and content like '%"+condition+"%'");
+                sb.append(" and name like '%"+condition+"%'");
             }
             sb.append(" limit ?,? ");
 
@@ -76,11 +76,11 @@ public class PageDao {
         try {
             connection = JdbcUtil.getConnection();
             //遍历条件查询语句
-            String sql="select count(*) from matter where 1 =1";
+            String sql="select count(*) from lesson where 1 =1";
             StringBuilder sb=new StringBuilder(sql);
 
             if (condition!=null && !"".equals(condition)){
-                sb.append(" and content like '%"+condition+"%'");
+                sb.append(" and name like '%"+condition+"%'");
             }
 
             //执行sql对象

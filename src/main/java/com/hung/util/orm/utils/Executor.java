@@ -22,24 +22,19 @@ public class Executor {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
+            Type type = mapper.getResultType();
+            Class<?> domainClass = null;
             //1.取出mapper中的数据
             String queryString = mapper.getQueryString();
-            Type type = mapper.getResultType();
             Type[] genericParameterTypes = mapper.getGenericParameterTypes();
-            Class<?> domainClass = null;
-
             //对#{}进行赋值
             queryString = paramSet(objects, genericParameterTypes, queryString);
-
             //2.获取PreparedStatement对象
             pstm = conn.prepareStatement(queryString);
-
             //对占位符数据注入
             preparedSet(objects, genericParameterTypes, pstm);
-
             //3.执行SQL语句，获取结果集
             rs = pstm.executeQuery();
-
             //根据返回值类型封装
             if (type instanceof ParameterizedType) {
                 //参数化类型强转
@@ -66,6 +61,34 @@ public class Executor {
             release(pstm, rs);
         }
         return null;
+    }
+
+    /**
+     * update方法
+     *
+     * @param mapper  mapper数据
+     * @param conn    连接
+     * @param objects 参数
+     * @return 1为成功
+     */
+    public Integer update(Mapper mapper, Connection conn, Object[] objects) {
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            //取出mapper中的数据
+            String queryString = mapper.getQueryString();
+            Type[] genericParameterTypes = mapper.getGenericParameterTypes();
+            queryString = paramSet(objects, genericParameterTypes, queryString);
+            //2.获取PreparedStatement对象
+            pstm = conn.prepareStatement(queryString);
+            preparedSet(objects, genericParameterTypes, pstm);
+            //3.执行SQL语句
+            return pstm.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            release(pstm, rs);
+        }
     }
 
     private <E> E resultSetNotCollection(ResultSet rs, Class<E> pclass) throws SQLException, InstantiationException, IllegalAccessException, IntrospectionException, InvocationTargetException {
@@ -126,34 +149,6 @@ public class Executor {
             }
         }
         return (E) list;
-    }
-
-    /**
-     * update方法
-     *
-     * @param mapper  mapper数据
-     * @param conn    连接
-     * @param objects 参数
-     * @return 1为成功
-     */
-    public Integer update(Mapper mapper, Connection conn, Object[] objects) {
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        try {
-            //取出mapper中的数据
-            String queryString = mapper.getQueryString();
-            Type[] genericParameterTypes = mapper.getGenericParameterTypes();
-            queryString = paramSet(objects, genericParameterTypes, queryString);
-            //2.获取PreparedStatement对象
-            pstm = conn.prepareStatement(queryString);
-            preparedSet(objects, genericParameterTypes, pstm);
-            //3.执行SQL语句
-            return pstm.executeUpdate();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            release(pstm, rs);
-        }
     }
 
     /**

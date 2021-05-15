@@ -16,14 +16,15 @@
 
     <script>
         function show(element) {
-            var eid = element.attr('id');
+            var btn = $(element);
+            var eid = btn.attr('id');
             //回显
-            $.ajax("/BaseServlet?method=queryLeavingMessages", {lessonId: eid}, function (leavingMessages) {
-                for (let leavingMessage in leavingMessages) {
+            $.post("/BaseServlet?method=queryLeavingMessages", {lessonId: eid}, function (leavingMessages) {
+                for (let i = 0; i < leavingMessages.length; i++) {
                     if (leavingMessage.message!=="" && leavingMessage.message!=null){
-                        $('messageTable').append(" <tr height={40px} align=center>\n" +
-                            "                    <td><font color=gray>"+leavingMessage.name+"</font></td>\n" +
-                            "                    <td><font color=gray>"+leavingMessage.message+"</font></td>\n" +
+                        $('#messageTable').append(" <tr height={40px} align=center>\n" +
+                            "                    <td><font color=gray>"+leavingMessages[i].name+"</font></td>\n" +
+                            "                    <td><font color=gray>"+leavingMessages[i].message+"</font></td>\n" +
                             "                </tr>");
                     }
                 }
@@ -45,21 +46,19 @@
         }
 
         $(function () {
-            $.ajax("/BaseServlet?method=queryOptionalCourse", function (courses) {
+            $.post("/BaseServlet?method=queryOptionalCourse", function (courses) {
                 if (courses.length !== 0) {
-                    var i = 1;
-                    for (let coursesKey in courses) {
-                        $('courseTable').append(" <tr height={40px} align=center>" +
-                            "        <td>" + coursesKey.id + "</td>\n" +
-                            "        <td>" + coursesKey.week + "</td>\n" +
-                            "        <td>" + coursesKey.turn + "</td>\n" +
-                            "        <td>" + coursesKey.name + "</td>\n" +
-                            "        <td>" + coursesKey.teacher + "</td>\n" +
-                            "        <td>" + coursesKey.classroom + "</td>\n" +
-                            "        <td><button id=\'" + coursesKey.id + "\' onclick={addCourse(this)} >选课</button></td>" +
-                            "<td><a href={javascript:void(0)}  onclick={show(this)} id='"+courses.id+"'>查看评价</a></td>" +
+                    for (let i = 0; i < courses.length; i++) {
+                        $('#courseTable').append(" <tr height={40px} align=center>" +
+                            "        <td>" + courses[i].id + "</td>\n" +
+                            "        <td>" + courses[i].week + "</td>\n" +
+                            "        <td>" + courses[i].turn + "</td>\n" +
+                            "        <td>" + courses[i].name + "</td>\n" +
+                            "        <td>" + courses[i].teacher + "</td>\n" +
+                            "        <td>" + courses[i].classroom + "</td>\n" +
+                            "        <td><button id=" + courses[i].id + " onclick={addCourse(this)} >选课</button></td>" +
+                            "<td><a onclick={show(this)} id='"+courses[i].id+"'>查看评价</a></td>" +
                             "    </tr>");
-                        i++;
                     }
                 }
             })
@@ -71,10 +70,9 @@
             var b = confirm("你确认选择吗?");
             if (b === true) {
                 var id = btn.attr("id");
-                $.ajax("/BaseServlet?method=addOptionalCourse", {lessonId: id}, function (result) {
+                $.post("/BaseServlet?method=addOptionalCourse", {lessonId: id}, function (result) {
                     alert(result);
                 })
-
             }
         }
     </script>

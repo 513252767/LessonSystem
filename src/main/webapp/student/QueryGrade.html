@@ -16,26 +16,26 @@
 
     <script>
         $(function () {
-            $.ajax("/BaseServlet?method=queryStudentGrade",function (studentGrades) {
-                for (let studentGrade in studentGrades) {
-                    $('studentGradeTable').append("<tr height=40px align=center>\n" +
-                        "        <td><font color=gray>"+studentGrade.lessonId+"</font></td>\n" +
-                        "        <td><font color=gray>"+studentGrade.lessonName+"</font></td>\n" +
-                        "        <td><font color=gray>"+studentGrade.studentGrade+"</font></td>\n" +
-                        "       <td><button type=\"button\" onclick=\"leaveMessage("+studentGrade.lessonId+")\">留言</button></td>\n" +
+            $.post("/BaseServlet?method=queryStudentGrade",function (studentGrades) {
+                for (let i = 0; i < studentGrades.length; i++) {
+                    $('#studentGradeTable').append("<tr height=40px align=center>\n" +
+                        "        <td><font color=gray>"+studentGrades[i].lessonId+"</font></td>\n" +
+                        "        <td><font color=gray>"+studentGrades[i].lessonName+"</font></td>\n" +
+                        "        <td><font color=gray>"+studentGrades[i].studentGrade+"</font></td>\n" +
+                        "       <td><button onclick=\"leaveMessage("+studentGrades[i].lessonId+")\">留言</button></td>\n" +
                         "    </tr>");
                 }
             })
         })
 
-        function leaveMessage(lessonId,lessonName) {
+        function leaveMessage(lessonId) {
             var message = prompt("请输入你想说的话");
             if (""===message){
                 alert("你输入为空");
                 return;
             }
-            $.ajax("/BaseServlet?method=",{message:message,lessonId:lessonId},function (boolean) {
-                if (boolean==true){
+            $.post("/BaseServlet?method=studentLeaveMessage",{message:message,lessonId:lessonId},function (boolean) {
+                if (boolean===true){
                     alert("留言成功!");
                 }else {
                     alert("留言失败!");
@@ -50,7 +50,7 @@
         <th><font color=gray>课程id</font></th>
         <th><font color=gray>课程名称</font></th>
         <th><font color=gray>成绩</font></th>
-        <th><font color=gray>   </font></th>
+        <th><font color=gray>按钮</font></th>
     </tr>
 </table>
 

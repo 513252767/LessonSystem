@@ -22,15 +22,17 @@ public class LessonToList {
         for (int j = 1; j < NUM; j++) {
             List<String> lessonList = new ArrayList<>();
             for (int k = 1; k < NUM; k++) {
-                for (int i = 0; i < list.size(); i++) {
-                    Lesson lesson = list.get(i);
+                boolean flag=false;
+                for (Lesson lesson : list) {
                     if (Integer.parseInt(lesson.getTurn()) == j && Integer.parseInt(lesson.getWeek()) == k) {
                         String teacher = userService.queryNickNameById(Integer.valueOf(lesson.getTeacher()));
                         lessonList.add(lesson.getName() + "@" + lesson.getClassroom() + teacher + "");
+                        flag=true;
                         break;
-                    } else {
-                        lessonList.add("");
                     }
+                }
+                if (!flag){
+                    lessonList.add("");
                 }
             }
             objects.add(lessonList);

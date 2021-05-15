@@ -65,7 +65,7 @@ public interface GradeDao {
      * @param lessonId
      * @return
      */
-    @Select("select userId,teacherGrade from grade where lessonId=?;")
+    @Select("select userId,teacherGrade from grade where lessonId=? and teacherGrade!='0';")
     List<Grade> queryTeacherGradeByLessonId(Integer lessonId);
 
     /**
@@ -73,7 +73,7 @@ public interface GradeDao {
      * @param userid
      * @return
      */
-    @Select("select lessonId,grade from grade where grade!='0';")
+    @Select("select lessonId,grade from grade where grade!='0' and userId= ?;")
     List<Grade> queryStudentGradeByUserId(Integer userid);
 
     /**

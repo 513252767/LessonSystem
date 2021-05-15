@@ -43,7 +43,7 @@ public class Exam {
         return "{\"" +
                 "lessonId\":\"" + lessonId +
                 "\", \"lessonName\":\"" + lessonName + '\"' +
-                ", \"testTime:\"" + testTime + '\"' +
+                ", \"testTime\":\"" + testTime + '\"' +
                 '}';
     }
 }

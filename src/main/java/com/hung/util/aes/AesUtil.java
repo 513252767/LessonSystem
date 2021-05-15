@@ -96,7 +96,7 @@ public class AesUtil {
 
     public static void main(String[] args) {
         String content = "123456";
-        String password = "wyh";
+        String password = "cph";
         System.out.println("需要加密的内容：" + content);
         byte[] encrypt = encrypt(content, password);
         System.out.println("加密后的2进制密文：" + new String(encrypt));

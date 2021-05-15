@@ -209,7 +209,6 @@ public class ActionServlet extends BaseServlet {
         Account account = (Account) session.getAttribute("account");
         List<Lesson> lessons = lessonService.queryAllLesson(account.getId());
         List<List<String>> lists = LessonToList.toList(lessons);
-        response.setContentType("application/json;charset=UTF-8");
         JSONArray.writeJSONString(lists, response.getWriter());
     }
 
@@ -378,15 +377,15 @@ public class ActionServlet extends BaseServlet {
     public void reviseUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        String name = request.getParameter("name");
+        Account account = (Account) session.getAttribute("account");
         String password = request.getParameter("password");
         String nickName = request.getParameter("nickName");
         String gender = request.getParameter("gender");
         String major = request.getParameter("major");
         String team = request.getParameter("team");
         String introduction = request.getParameter("introduction");
-        Account account = new Account(name, AesUtil.encryptStr(password, name));
-        accountService.updateAccount(account);
+        Account accountRevise = new Account(account.getName(), AesUtil.encryptStr(password, account.getName()));
+        accountService.updateAccount(accountRevise);
         User userRevise = new User(user.getId(), nickName, gender, team, major, introduction, user.getAccountId());
         userService.updateUser(userRevise);
         request.getRequestDispatcher(request.getContextPath() + "/PersonPage.html").forward(request, response);
@@ -557,9 +556,14 @@ public class ActionServlet extends BaseServlet {
         //转发
         request.setAttribute("pb",pb);
         request.setAttribute("condition",condition);
-        request.setAttribute("buildings",pb.getList());
-        request.getRequestDispatcher(request.getContextPath()+"/student/LessonPage1.jsp").forward(request,response);
+        JSONArray.writeJSONString(pb.getList(),response.getWriter());
     }
+
+    public void teacherLeavingMessage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String lessonId = request.getParameter("lessonId");
+
+    }
+
 
     public ActionServlet() {
     }

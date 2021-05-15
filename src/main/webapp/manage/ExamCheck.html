@@ -17,22 +17,28 @@
     <script>
 
         $(function () {
-            $.ajax("/BaseServlet?method=queryExamApply", function (applies) {
-                for (let apply in applies) {
-                    $('examApplyTable').append("<tr height={40px} align=center >\n" +
-                        "        <td>" + apply.id + "</td>\n" +
-                        "        <td>" + apply.lessonId + "</td>\n" +
-                        "        <td>" + apply.number + "</td>\n" +
-                        "        <td>" + apply.examTime + "</td>\n" +
-                        "<td><button type=\"button\" id=\"\" onclick={classroomSet("+apply.lessonId+","+apply.number+")}>通过申请</button></td>"+
+            $.post("/BaseServlet?method=queryExamApply", function (applies) {
+                for (let i = 0; i < applies.length; i++) {
+                    $('#examApplyTable').append("<tr height={40px} align=center >\n" +
+                        "        <td>" + applies[i].id + "</td>\n" +
+                        "        <td>" + applies[i].lessonId + "</td>\n" +
+                        "        <td>" + applies[i].number + "</td>\n" +
+                        "        <td>" + applies[i].examTime + "</td>\n" +
+                        "<td><a  onclick={classroomSet(" + applies[i].lessonId + "," + applies[i].number + ")}>通过申请</a></td>" +
                         "    </tr>");
                 }
             })
         })
 
-        function classroomSet(lessonId,number) {
+        function classroomSet(lessonId, number) {
+            var lesson_id = $(lessonId);
+            var number_in = $(number);
             var classroom = prompt("请输入考试教室");
-            $.ajax("/BaseServlet?method=addExam",{lessonId:lessonId,classroom:classroom,number:number},function () {
+            $.post("/BaseServlet?method=addExam", {
+                lessonId: lesson_id,
+                classroom: classroom,
+                number: number_in
+            }, function () {
                 alert("通过申请成功!");
             })
         }

@@ -21,7 +21,7 @@ public class ApplicationContext {
     private Class<?> configClass;
     final String SINGLETON = "singleton";
     final String ENDWITH = ".class";
-    String[] paths = {"com/hung/dao", "com/hung/util/spring/ioc", "com/hung/service/impl", "com/hung/servlet","com/hung/view/login"};
+    String[] paths = {"com/hung/dao", "com/hung/util/spring/ioc", "com/hung/service/impl", "com/hung/servlet","com/hung/view/login","com/hung/util"};
 
     Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
 

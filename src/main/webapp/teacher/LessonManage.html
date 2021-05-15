@@ -76,20 +76,21 @@
     <script>
 
         function show(element) {
-            var eid = element.attr('id');
+            var btn = $(element);
+            var eid = btn.attr('id');
             //回显
-            $.ajax("/BaseServlet?method=queryLessonById", {lessonId: eid}, function (lesson) {
-                $('lessonId').val(lesson.id);
-                $('lessonName').val(lesson.name);
-                if (lesson.category === 1) {
-                    $('required').attr('checked', true);
+            $.post("/BaseServlet?method=queryLessonById", {lessonId: eid}, function (lesson) {
+                $('#lessonId').val(lesson.id);
+                $('#lessonName').val(lesson.name);
+                if (lesson.category === '1') {
+                    $('#required').attr('checked', true);
                 } else {
-                    $('optional').attr('checked', true);
+                    $('#optional').attr('checked', true);
                 }
-                $('lessonTurn').val(lesson.turn);
-                $('lessonClassroom').val(lesson.classroom);
-                $('lessonWeek').val(lesson.week);
-                $('examLessonId').val(lesson.id);
+                $('#lessonTurn').val(lesson.turn);
+                $('#lessonClassroom').val(lesson.classroom);
+                $('#lessonWeek').val(lesson.week);
+                $('#examLessonId').val(lesson.id);
             })
 
             var light = document.getElementById('light');
@@ -109,22 +110,23 @@
 
         $(function () {
             $.post("/BaseServlet?method=queryLessons", function (lessons) {
-                for (let lesson in lessons) {
-                    $('lessonTable').append("<tr height={40px} align=center>\n" +
-                        "        <td>" + lesson.id + "</td>\n" +
-                        "        <td>" + lesson.name + "</td>\n" +
-                        "        <td>" + lesson.classroom + "</td>\n" +
-                        "        <td>" + lesson.number + "</td>\n" +
-                        "        <td>" + lesson.category + "</td>\n" +
-                        "        <a href={javascript:void(0)} onclick={show(this)} class={btn btn-secondary btn-lg} id=" + lesson.id + ">课程管理</a>\n" +
+                for (let i = 0; i < lessons.length; i++) {
+                    $('#lessonTable').append("<tr height={40px} align=center>\n" +
+                        "        <td>" + lessons[i].id + "</td>\n" +
+                        "        <td>" + lessons[i].name + "</td>\n" +
+                        "        <td>" + lessons[i].classroom + "</td>\n" +
+                        "        <td>" + lessons[i].number + "</td>\n" +
+                        "        <td>" + lessons[i].category + "</td>\n" +
+                        "        <td><a onclick={show(this)} class= \'btn btn-secondary btn-lg\' id=" + lessons[i].id + ">课程管理</a></td>" +
+                        "        <td><a onclick={leavingMessage(this)} class= \'btn btn-secondary btn-lg\' id=" + lessons[i].id + ">查看留言</a></td>" +
                         "    </tr>")
                 }
             })
         })
 
         function examSubmitCheck() {
-            var examTime = $('examTime').value();
-            var examNumber = $('examNumber').value();
+            var examTime = $('#examTime').value();
+            var examNumber = $('#examNumber').value();
             if (examTime === "") {
                 alert("考试时间为空哦！");
                 return false;
@@ -141,26 +143,34 @@
             return true;
         }
 
+        function leavingMessage(element) {
+            var btn = $(element);
+            var lessonId = btn.attr('id');
+            $.post("/BaseServlet?method=teacherLeavingMessage",{lessonId:lessonId},function () {
+
+            })
+        }
+
         function lessonReset() {
-            $.ajax("/BaseServlet?method=queryLessonById", {lessonId: $('lessonId').value()}, function (lesson) {
-                $('lessonId').val(lesson.id);
-                $('lessonName').val(lesson.name);
-                $('lessonClassroom').val(lesson.classroom);
+            $.post("/BaseServlet?method=queryLessonById", {lessonId: $('#lessonId').value()}, function (lesson) {
+                $('#lessonId').val(lesson.id);
+                $('#lessonName').val(lesson.name);
+                $('#lessonClassroom').val(lesson.classroom);
                 if (lesson.category === 1) {
-                    $('required').attr('checked', true);
+                    $('#required').attr('checked', true);
                 } else {
-                    $('optional').attr('checked', true);
+                    $('#optional').attr('checked', true);
                 }
-                $('lessonTurn').val(lesson.turn);
-                $('lessonWeek').val(lesson.week);
+                $('#lessonTurn').val(lesson.turn);
+                $('#lessonWeek').val(lesson.week);
             })
         }
 
         function lessonSubmitCheck() {
-            var lessonName = $('lessonName').value();
-            var lessonTurn = $('lessonTurn').value();
-            var lessonWeek = $('lessonWeek').value();
-            var lessonClassroom = $('lessonClassroom').value();
+            var lessonName = $('#lessonName').value();
+            var lessonTurn = $('#lessonTurn').value();
+            var lessonWeek = $('#lessonWeek').value();
+            var lessonClassroom = $('#lessonClassroom').value();
             if (isNaN(lessonTurn) || isNaN(lessonWeek)){
                 alert("星期和节数请输入数字哦");
                 return false;
@@ -189,6 +199,7 @@
             <th><font color=gray>最大人数</font></th>
             <th><font color=gray>课程类型(1为必修，2为选修)</font></th>
             <th><font color=gray> </font></th>
+            <th><font color=gray> </font></th>
         </tr>
     </table>
 </div>
@@ -205,7 +216,7 @@
                             <span class="input-group-text">课程ID</span>
                         </div>
                         <input type="text" id="lessonId" class="form-control" aria-label="Sizing example input"
-                               aria-describedby="inputGroup-sizing-default" disabled>
+                               aria-describedby="inputGroup-sizing-default" disabled hidden>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -255,7 +266,7 @@
 
             <div>
                 <form method="get" style="padding-left: 260px;padding-right: 250px" action="BaseServlet?method=addExamApply">
-                    <input type="text" class="form-control" aria-label="Sizing example input"
+                    <input type="hidden" class="form-control" aria-label="Sizing example input"
                            aria-describedby="inputGroup-sizing-default" id="examLessonId" disabled>
                     <label>设置考试时间</label>
                     <input type="text" class="form-control" aria-label="Sizing example input"

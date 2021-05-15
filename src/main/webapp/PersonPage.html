@@ -43,7 +43,7 @@
             $.post("/BaseServlet?method=findUser",function (user) {
                 $('#nickName').val(user.name);
                 $('#major').val(user.major);
-                if (user.gender===1) {
+                if (user.gender=='1') {
                     $('#boy').attr("checked", true);
                 }else {
                     $('#girl').attr("checked", true);
@@ -61,26 +61,26 @@
 </head>
 <body>
 <div align="center">
-    <form method="post" id="personForm" action="BaseServlet?method=reviseUser">
+    <form method="post" id="personForm" action="/BaseServlet?method=reviseUser">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" >姓名</span>
+                <span class="input-group-text" >用户名</span>
                 <input type="text" id="name" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default" disabled value="1">
+                       aria-describedby="inputGroup-sizing-default" name="name" disabled>
             </div>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">密码</span>
                 <input type="text" id="password" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
+                       aria-describedby="inputGroup-sizing-default" name="password">
             </div>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">昵称</span>
+                <span class="input-group-text">姓名</span>
                 <input type="text" id="nickName" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
+                       aria-describedby="inputGroup-sizing-default" name="nickName">
             </div>
 
         </div>
@@ -101,21 +101,21 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">专业</span>
                 <input type="text" id="major" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
+                       aria-describedby="inputGroup-sizing-default" name="major">
             </div>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">班级</span>
                 <input type="text" id="team" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
+                       aria-describedby="inputGroup-sizing-default" name="team">
             </div>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">自我介绍</span>
                 <input type="text" id="introduction" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
+                       aria-describedby="inputGroup-sizing-default" name="introduction">
             </div>
         </div>
         <button type="submit" onclick="submitCheck()">提交修改</button>
